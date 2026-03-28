@@ -16,15 +16,13 @@ import { createLaunchpadToken } from "@/lib/launchpad";
 const BONDING_CURVE_TARGET_SOL = 42;
 
 const formSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
+  name: z.string().min(1, "Name must be at least 1 character"),
   ticker: z
     .string()
-    .min(2, "Ticker must be at least 2 characters")
+    .min(1, "Ticker must be at least 1 character")
     .max(10, "Ticker cannot exceed 10 characters")
     .regex(/^[A-Za-z0-9]+$/, "Ticker must be alphanumeric"),
-  description: z
-    .string()
-    .min(10, "Description must be at least 10 characters"),
+  description: z.string().optional().or(z.literal("")),
   imageUrl: z
     .string()
     .url("Must be a valid URL")
@@ -156,7 +154,7 @@ export function CreateTokenModal({
       const result = await createLaunchpadToken({
         name: data.name,
         ticker: upperTicker,
-        description: data.description,
+        description: data.description || "",
         imageUrl: data.imageUrl || null,
         wallet: {
           publicKey: wallet.publicKey!,
@@ -177,6 +175,7 @@ export function CreateTokenModal({
       data: {
         ...data,
         ticker: upperTicker,
+        description: data.description || "",
         imageUrl: data.imageUrl || null,
         bondingCurveTarget: BONDING_CURVE_TARGET_SOL,
         creatorWallet: wallet.address,
@@ -332,7 +331,10 @@ export function CreateTokenModal({
                     {/* Description */}
                     <div className="space-y-1.5">
                       <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                        Description
+                        Description{" "}
+                        <span className="text-muted-foreground/50 lowercase normal-case">
+                          (Optional)
+                        </span>
                       </label>
                       <textarea
                         {...register("description")}
@@ -340,12 +342,6 @@ export function CreateTokenModal({
                         placeholder="Describe your memecoin..."
                         disabled={isBusy}
                       />
-                      {errors.description && (
-                        <p className="text-xs text-destructive flex items-center gap-1">
-                          <AlertCircle className="w-3 h-3" />
-                          {errors.description.message}
-                        </p>
-                      )}
                     </div>
 
                     {/* Image URL */}
