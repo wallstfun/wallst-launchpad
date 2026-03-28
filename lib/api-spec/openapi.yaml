@@ -1,15 +1,16 @@
 openapi: 3.1.0
 info:
-  # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: Wall St. Launchpad API specification
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: launchpad
+    description: Launchpad operations
 paths:
   /healthz:
     get:
@@ -24,6 +25,89 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /launchpad/tokens:
+    get:
+      operationId: getTokens
+      tags: [launchpad]
+      summary: Get all launched tokens
+      responses:
+        "200":
+          description: List of tokens
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Token"
+    post:
+      operationId: createToken
+      tags: [launchpad]
+      summary: Create / launch a new token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateTokenRequest"
+      responses:
+        "201":
+          description: Token created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Token"
+        "409":
+          description: Ticker cooldown conflict
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TickerCooldownError"
+
+  /launchpad/check-ticker:
+    get:
+      operationId: checkTicker
+      tags: [launchpad]
+      summary: Check if a ticker is available (not in cooldown)
+      parameters:
+        - name: ticker
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Ticker availability status
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TickerCheck"
+
+  /launchpad/tokens/{id}/update-progress:
+    patch:
+      operationId: updateTokenProgress
+      tags: [launchpad]
+      summary: Update SOL raised for a token
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateProgressRequest"
+      responses:
+        "200":
+          description: Updated token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Token"
+
 components:
   schemas:
     HealthStatus:
@@ -34,3 +118,98 @@ components:
       required:
         - status
 
+    Token:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        ticker:
+          type: string
+        description:
+          type: string
+        imageUrl:
+          type: string
+          nullable: true
+        bondingCurveTarget:
+          type: number
+        solRaised:
+          type: number
+        creatorWallet:
+          type: string
+          nullable: true
+        mintAddress:
+          type: string
+          nullable: true
+        migrated:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - name
+        - ticker
+        - description
+        - bondingCurveTarget
+        - solRaised
+        - migrated
+        - createdAt
+
+    CreateTokenRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        ticker:
+          type: string
+          maxLength: 10
+        description:
+          type: string
+        imageUrl:
+          type: string
+          nullable: true
+        bondingCurveTarget:
+          type: number
+        creatorWallet:
+          type: string
+          nullable: true
+        mintAddress:
+          type: string
+          nullable: true
+      required:
+        - name
+        - ticker
+        - description
+        - bondingCurveTarget
+
+    UpdateProgressRequest:
+      type: object
+      properties:
+        solRaised:
+          type: number
+      required:
+        - solRaised
+
+    TickerCheck:
+      type: object
+      properties:
+        available:
+          type: boolean
+        minutesRemaining:
+          type: number
+          nullable: true
+      required:
+        - available
+
+    TickerCooldownError:
+      type: object
+      properties:
+        error:
+          type: string
+        minutesRemaining:
+          type: number
+      required:
+        - error
+        - minutesRemaining

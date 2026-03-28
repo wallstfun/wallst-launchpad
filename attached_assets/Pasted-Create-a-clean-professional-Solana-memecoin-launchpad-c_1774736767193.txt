@@ -1,0 +1,31 @@
+Create a clean, professional Solana memecoin launchpad called "Wall St. Launchpad" using Next.js TypeScript + Tailwind CSS.
+
+**Exact Design Goal**: Match wallst.fun's premium dark finance / trading dashboard aesthetic as closely as possible.
+
+Key visual elements from wallst.fun to replicate:
+- Very deep/dark background (#050505 to #0a0a0a range, almost pure black)
+- Clean, sharp cards with subtle dark borders, minimal shadows, and good spacing
+- Professional, high-contrast sans-serif typography with excellent readability
+- Subtle neon green accents (#00ff88 or similar) used sparingly on buttons, status indicators, and highlights only
+- Overall serious Wall Street / trading terminal feel — clean, premium, not bright or cartoonish
+- Button style: modern, slightly rounded, clean hover effects like wallst.fun
+- Card layout: compact, professional, similar to wallst.fun's dashboard cards
+
+**Features**:
+- Hero section: "Wall St. Launchpad" with subtitle "Fair memecoin launches with bonding curve that automatically migrates to Raydium"
+- Prominent "Create Coin" button that opens a clean modal
+- Modal fields: Token Name, Ticker (max 10 characters), Description, Image URL, Bonding curve target in SOL (default: 42)
+- 15-minute ticker cooldown using Replit DB (if same ticker used <15 min ago, show "This ticker was launched recently. Please wait X minutes before reusing it.")
+- Real Raydium LaunchLab integration using @raydium-io/raydium-sdk-v2 with program ID: LanMV9sAd7wArD4vJFi2qDdfnVhFxYSUg6eADduJ3uj
+- "Live Launches" section: responsive grid of professional cards with progress bars (SOL raised / target), token name, ticker
+- Phantom wallet connection with button style matching wallst.fun
+
+First install packages correctly:
+- Run: pnpm add @raydium-io/raydium-sdk-v2 @replit/database -w
+- Then: pnpm install
+
+Create all necessary files automatically, including app/launchpad/page.tsx and lib/launchpad.ts with helper functions.
+
+Make the Create Coin flow functional on devnet using NEXT_PUBLIC_RPC_URL from .env.
+
+After building, ensure the visual design is as close as possible to wallst.fun's premium dark finance style.
