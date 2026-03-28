@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { X, Loader2, AlertCircle, CheckCircle2, Wallet } from "lucide-react";
+import { X, Loader2, AlertCircle, CheckCircle2, Lock } from "lucide-react";
 import {
   useCreateToken,
   useCheckTicker,
@@ -12,6 +12,8 @@ import {
 import { useQueryClient } from "@tanstack/react-query";
 import { useWallet } from "@/hooks/use-wallet";
 import { createLaunchpadToken } from "@/lib/launchpad";
+
+const BONDING_CURVE_TARGET_SOL = 42;
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -28,16 +30,13 @@ const formSchema = z.object({
     .url("Must be a valid URL")
     .optional()
     .or(z.literal("")),
-  bondingCurveTarget: z.coerce
-    .number()
-    .min(10, "Must be at least 10 SOL")
-    .max(1000, "Max 1000 SOL"),
 });
 
 type FormValues = z.infer<typeof formSchema>;
 
 type LaunchStep =
   | "idle"
+  | "connecting"
   | "signing"
   | "broadcasting"
   | "recording"
@@ -46,7 +45,8 @@ type LaunchStep =
 
 function StepLabel({ step }: { step: LaunchStep }) {
   const labels: Record<LaunchStep, string> = {
-    idle: "Launch Token",
+    idle: "Launch Coin",
+    connecting: "Connecting Wallet...",
     signing: "Waiting for Phantom...",
     broadcasting: "Broadcasting to Solana...",
     recording: "Recording on-chain data...",
@@ -82,7 +82,6 @@ export function CreateTokenModal({
       ticker: "",
       description: "",
       imageUrl: "",
-      bondingCurveTarget: 42,
     },
   });
 
@@ -136,17 +135,23 @@ export function CreateTokenModal({
       return;
     }
 
-    // Must be connected to a wallet
+    // ── Step 0: connect Phantom NOW (only on final submit) ─────────────────
     if (!wallet.connected || !wallet.publicKey || !wallet.signAllTransactions) {
-      await wallet.connect();
-      return;
+      setLaunchStep("connecting");
+      try {
+        await wallet.connect();
+      } catch {
+        setLaunchStep("idle");
+        setTickerError("Wallet connection cancelled. Please try again.");
+        return;
+      }
     }
 
     const upperTicker = data.ticker.toUpperCase();
     let mintAddress: string | null = null;
 
     try {
-      // Step 1 – Sign & broadcast the Raydium LaunchLab transaction
+      // ── Step 1: Sign & broadcast Raydium LaunchLab transaction ───────────
       setLaunchStep("signing");
       const result = await createLaunchpadToken({
         name: data.name,
@@ -154,8 +159,8 @@ export function CreateTokenModal({
         description: data.description,
         imageUrl: data.imageUrl || null,
         wallet: {
-          publicKey: wallet.publicKey,
-          signAllTransactions: wallet.signAllTransactions,
+          publicKey: wallet.publicKey!,
+          signAllTransactions: wallet.signAllTransactions!,
           signTransaction: wallet.signTransaction!,
         },
       });
@@ -163,17 +168,17 @@ export function CreateTokenModal({
       setLaunchStep("recording");
     } catch (err: unknown) {
       console.error("Raydium launch failed:", err);
-      // On devnet / no wallet, fall through and still record in DB
-      // so the UI remains functional even without a live wallet
+      // On devnet / rejected wallet, fall through and still record in DB
       setLaunchStep("recording");
     }
 
-    // Step 2 – Record token in database regardless of on-chain result
+    // ── Step 2: Record token in database ────────────────────────────────────
     createToken.mutate({
       data: {
         ...data,
         ticker: upperTicker,
         imageUrl: data.imageUrl || null,
+        bondingCurveTarget: BONDING_CURVE_TARGET_SOL,
         creatorWallet: wallet.address,
         mintAddress,
       },
@@ -181,6 +186,7 @@ export function CreateTokenModal({
   };
 
   const isBusy =
+    launchStep === "connecting" ||
     launchStep === "signing" ||
     launchStep === "broadcasting" ||
     launchStep === "recording" ||
@@ -220,25 +226,6 @@ export function CreateTokenModal({
                 </button>
               </div>
 
-              {/* Wallet notice */}
-              {!wallet.connected && (
-                <div className="mx-5 mt-4 px-4 py-3 rounded-lg bg-secondary border border-border flex items-center gap-3 text-sm">
-                  <Wallet className="w-4 h-4 text-primary shrink-0" />
-                  <span className="text-muted-foreground">
-                    Connect{" "}
-                    {wallet.isPhantomInstalled ? "Phantom" : "your wallet"} to
-                    launch on-chain.{" "}
-                    <button
-                      type="button"
-                      onClick={() => wallet.connect()}
-                      className="text-primary underline underline-offset-2"
-                    >
-                      Connect
-                    </button>
-                  </span>
-                </div>
-              )}
-
               <div className="p-5 overflow-y-auto">
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                   {tickerError && (
@@ -249,6 +236,12 @@ export function CreateTokenModal({
                   )}
 
                   {/* Launch step status */}
+                  {launchStep === "connecting" && (
+                    <div className="px-4 py-3 rounded-lg bg-primary/5 border border-primary/20 flex items-center gap-2 text-primary">
+                      <Loader2 className="w-4 h-4 animate-spin shrink-0" />
+                      <p className="text-xs">Opening Phantom wallet...</p>
+                    </div>
+                  )}
                   {launchStep === "signing" && (
                     <div className="px-4 py-3 rounded-lg bg-primary/5 border border-primary/20 flex items-center gap-2 text-primary">
                       <Loader2 className="w-4 h-4 animate-spin shrink-0" />
@@ -377,28 +370,23 @@ export function CreateTokenModal({
                       )}
                     </div>
 
-                    {/* Bonding curve target */}
+                    {/* Bonding Curve Target — fixed, non-editable */}
                     <div className="space-y-1.5">
-                      <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                        Bonding Curve Target (SOL)
+                      <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider flex items-center gap-1.5">
+                        Bonding Curve Target
+                        <Lock className="w-3 h-3 text-muted-foreground/50" />
                       </label>
                       <div className="flex items-center gap-2">
-                        <input
-                          type="number"
-                          {...register("bondingCurveTarget")}
-                          className="w-full bg-secondary border border-border rounded-lg px-3 py-2.5 text-sm font-mono focus:outline-none focus:border-primary/50 focus:ring-0 transition-colors"
-                          disabled={isBusy}
-                        />
+                        <div className="flex-1 bg-secondary/50 border border-border/50 rounded-lg px-3 py-2.5 text-sm font-mono text-muted-foreground cursor-not-allowed select-none">
+                          {BONDING_CURVE_TARGET_SOL}
+                        </div>
                         <div className="h-[42px] px-3 bg-card rounded-lg flex items-center justify-center font-mono text-xs text-muted-foreground border border-border shrink-0">
                           SOL
                         </div>
                       </div>
-                      {errors.bondingCurveTarget && (
-                        <p className="text-xs text-destructive flex items-center gap-1">
-                          <AlertCircle className="w-3 h-3" />
-                          {errors.bondingCurveTarget.message}
-                        </p>
-                      )}
+                      <p className="text-xs text-muted-foreground/50">
+                        Fixed at {BONDING_CURVE_TARGET_SOL} SOL — triggers automatic Raydium migration when reached
+                      </p>
                     </div>
                   </div>
 
@@ -415,7 +403,7 @@ export function CreateTokenModal({
 
                   {/* Devnet disclaimer */}
                   <p className="text-center text-xs text-muted-foreground/40">
-                    Transactions occur on Solana devnet
+                    Transactions occur on Solana devnet · Phantom required to launch on-chain
                   </p>
                 </form>
               </div>

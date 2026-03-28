@@ -3,22 +3,14 @@ import { Layout } from "@/components/layout";
 import { TokenCard } from "@/components/token-card";
 import { CreateTokenModal } from "@/components/create-token-modal";
 import { useGetTokens } from "@workspace/api-client-react";
-import { useWallet } from "@/hooks/use-wallet";
 import { PLATFORM_FEE_PERCENT } from "@/lib/launchpad";
 
 export default function Home() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-  const { connected, connect } = useWallet();
   const { data: tokens, isLoading } = useGetTokens();
 
   const handleCreateClick = () => {
-    if (!connected) {
-      connect();
-      // Wait for mock connection to resolve
-      setTimeout(() => setIsCreateModalOpen(true), 600);
-    } else {
-      setIsCreateModalOpen(true);
-    }
+    setIsCreateModalOpen(true);
   };
 
   const totalRaised = tokens?.reduce((acc, token) => acc + token.solRaised, 0) || 0;
