@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { X, Loader2, AlertCircle, CheckCircle2, Lock } from "lucide-react";
+import { X, Loader2, AlertCircle, CheckCircle2 } from "lucide-react";
 import {
   useCreateToken,
   useCheckTicker,
@@ -370,24 +370,6 @@ export function CreateTokenModal({
                       )}
                     </div>
 
-                    {/* Bonding Curve Target — fixed, non-editable */}
-                    <div className="space-y-1.5">
-                      <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider flex items-center gap-1.5">
-                        Bonding Curve Target
-                        <Lock className="w-3 h-3 text-muted-foreground/50" />
-                      </label>
-                      <div className="flex items-center gap-2">
-                        <div className="flex-1 bg-secondary/50 border border-border/50 rounded-lg px-3 py-2.5 text-sm font-mono text-muted-foreground cursor-not-allowed select-none">
-                          {BONDING_CURVE_TARGET_SOL}
-                        </div>
-                        <div className="h-[42px] px-3 bg-card rounded-lg flex items-center justify-center font-mono text-xs text-muted-foreground border border-border shrink-0">
-                          SOL
-                        </div>
-                      </div>
-                      <p className="text-xs text-muted-foreground/50">
-                        Fixed at {BONDING_CURVE_TARGET_SOL} SOL — triggers automatic Raydium migration when reached
-                      </p>
-                    </div>
                   </div>
 
                   <div className="pt-2">
