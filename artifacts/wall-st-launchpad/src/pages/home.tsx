@@ -4,6 +4,7 @@ import { TokenCard } from "@/components/token-card";
 import { CreateTokenModal } from "@/components/create-token-modal";
 import { useGetTokens } from "@workspace/api-client-react";
 import { useWallet } from "@/hooks/use-wallet";
+import { PLATFORM_FEE_PERCENT } from "@/lib/launchpad";
 
 export default function Home() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
@@ -68,8 +69,8 @@ export default function Home() {
               <div className="text-xs font-mono text-muted-foreground uppercase tracking-wider">Graduated</div>
             </div>
             <div className="py-5 px-6 flex flex-col">
-              <div className="text-2xl font-mono font-bold text-foreground mb-1">1.0%</div>
-              <div className="text-xs font-mono text-muted-foreground uppercase tracking-wider">Fee</div>
+              <div className="text-2xl font-mono font-bold text-foreground mb-1">{PLATFORM_FEE_PERCENT}%</div>
+              <div className="text-xs font-mono text-muted-foreground uppercase tracking-wider">Platform Fee</div>
             </div>
           </div>
         </div>

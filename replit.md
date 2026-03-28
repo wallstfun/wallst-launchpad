@@ -54,6 +54,7 @@ A premium dark-themed Solana memecoin launchpad app.
 - Token metadata endpoint serves Metaplex-compatible JSON as token URI
 - Raydium migration badge for completed launches
 - Graceful fallback: still records token in DB if on-chain tx fails (devnet / no wallet)
+- **Platform fee collection**: 0.75% `shareFeeRate` sent to `Hw7yc27h6Lws6YsQmdLoj4M7psyFHRhosFwoGuSESmTh` on every buy/sell via `shareFeeReceiver` in the Raydium LaunchLab SDK
 
 ### Key Files
 - `artifacts/wall-st-launchpad/src/pages/home.tsx` — Main page
