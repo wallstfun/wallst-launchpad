@@ -3,6 +3,7 @@ import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import path from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
+import { nodePolyfills } from "vite-plugin-node-polyfills";
 
 const rawPort = process.env.PORT;
 
@@ -29,6 +30,10 @@ if (!basePath) {
 export default defineConfig({
   base: basePath,
   plugins: [
+    nodePolyfills({
+      include: ["buffer", "process", "stream", "util", "crypto"],
+      globals: { Buffer: true, process: true, global: true },
+    }),
     react(),
     tailwindcss(),
     runtimeErrorOverlay(),
@@ -57,6 +62,9 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
+    commonjsOptions: {
+      transformMixedEsModules: true,
+    },
   },
   server: {
     port,
@@ -71,5 +79,21 @@ export default defineConfig({
     port,
     host: "0.0.0.0",
     allowedHosts: true,
+  },
+  optimizeDeps: {
+    include: [
+      "@raydium-io/raydium-sdk-v2",
+      "@solana/web3.js",
+      "@solana/buffer-layout",
+      "@solana/spl-token",
+      "bn.js",
+      "lodash",
+    ],
+    esbuildOptions: {
+      target: "esnext",
+    },
+  },
+  define: {
+    "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV || "development"),
   },
 });

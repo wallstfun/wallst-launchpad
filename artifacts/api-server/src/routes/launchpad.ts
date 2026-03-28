@@ -118,4 +118,47 @@ router.patch("/tokens/:id/update-progress", async (req, res) => {
   res.json(updated);
 });
 
+/**
+ * GET /api/launchpad/token-metadata
+ *
+ * Returns Metaplex-compatible SPL token metadata JSON.
+ * Used as the `uri` parameter when creating a LaunchLab token on Raydium.
+ *
+ * Query params:
+ *   name        - token name
+ *   symbol      - token ticker
+ *   description - token description
+ *   image       - (optional) token image URL
+ */
+router.get("/token-metadata", (req, res) => {
+  const { name, symbol, description, image } = req.query as Record<
+    string,
+    string | undefined
+  >;
+
+  if (!name || !symbol) {
+    res.status(400).json({ error: "name and symbol are required" });
+    return;
+  }
+
+  const metadata = {
+    name: String(name),
+    symbol: String(symbol),
+    description: description ? String(description) : "",
+    image: image ? String(image) : "",
+    external_url: "",
+    attributes: [],
+    properties: {
+      files: image
+        ? [{ uri: String(image), type: "image/png" }]
+        : [],
+      category: "image",
+    },
+  };
+
+  res.setHeader("Content-Type", "application/json");
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.json(metadata);
+});
+
 export default router;

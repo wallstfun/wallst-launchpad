@@ -42,27 +42,43 @@ A premium dark-themed Solana memecoin launchpad app.
 
 ### Features
 - Ultra-dark trading terminal design (#050505 background, neon green #00ff88 accents)
-- Hero section with "Launch Coin Now" CTA
+- Hero section with "Create Coin" CTA
 - Stats bar (Total Launches, SOL Raised, Graduated, Fee)
 - Live Launches grid of token cards with bonding curve progress bars
 - Create Coin modal with ticker cooldown enforcement (15-minute cooldown per ticker)
-- Mock Phantom wallet connect button
+- **Real Phantom wallet connection** via `window.solana` browser API
+- **Real Raydium LaunchLab integration** using `@raydium-io/raydium-sdk-v2@0.2.36-alpha`
+  - Program ID: `LanMV9sAd7wArD4vJFi2qDdfnVhFxYSUg6eADduJ3uj` (mainnet), `DRay6fNdQ5J82H7xV6uq2aV3mNrUZ1J4PgSKsWgptcm6` (devnet)
+  - Devnet Config: `7ZR4zD7PYfY2XxoG1Gxcy2EgEeGYrpxrwzPuwdUBssEt`
+  - Token creation via `raydium.launchpad.createLaunchpad()`, signs with Phantom
+- Token metadata endpoint serves Metaplex-compatible JSON as token URI
 - Raydium migration badge for completed launches
+- Graceful fallback: still records token in DB if on-chain tx fails (devnet / no wallet)
 
 ### Key Files
 - `artifacts/wall-st-launchpad/src/pages/home.tsx` — Main page
-- `artifacts/wall-st-launchpad/src/components/create-token-modal.tsx` — Launch modal
+- `artifacts/wall-st-launchpad/src/components/create-token-modal.tsx` — Launch modal with full on-chain flow
 - `artifacts/wall-st-launchpad/src/components/token-card.tsx` — Token cards
 - `artifacts/wall-st-launchpad/src/components/layout.tsx` — App layout/navbar
-- `artifacts/wall-st-launchpad/src/hooks/use-wallet.tsx` — Mock wallet context
-- `artifacts/api-server/src/routes/launchpad.ts` — Launchpad API routes
+- `artifacts/wall-st-launchpad/src/hooks/use-wallet.tsx` — Real Phantom wallet context
+- `artifacts/wall-st-launchpad/src/lib/launchpad.ts` — Raydium LaunchLab SDK integration
+- `artifacts/api-server/src/routes/launchpad.ts` — Launchpad API routes + metadata endpoint
 - `lib/db/src/schema/tokens.ts` — Tokens table schema
+
+### Environment Variables
+- `VITE_RPC_URL` — Solana RPC endpoint (defaults to `https://api.devnet.solana.com`)
 
 ### API Endpoints
 - `GET /api/launchpad/tokens` — List all tokens
 - `POST /api/launchpad/tokens` — Create a token (enforces 15-min ticker cooldown)
 - `GET /api/launchpad/check-ticker?ticker=XXX` — Check ticker availability
 - `PATCH /api/launchpad/tokens/:id/update-progress` — Update SOL raised (auto-migrates when target reached)
+- `GET /api/launchpad/token-metadata?name=X&symbol=Y&description=Z&image=W` — Metaplex token metadata JSON (used as LaunchLab URI)
+
+### Vite Config Notes
+- `vite-plugin-node-polyfills` provides Buffer/process/crypto polyfills for Solana SDK
+- `@raydium-io/raydium-sdk-v2`, `@solana/web3.js`, `@solana/buffer-layout`, `lodash` are in `optimizeDeps.include` to ensure correct CJS→ESM conversion by esbuild
+- `bn.js`, `@solana/buffer-layout` installed directly in frontend workspace to satisfy Vite's dep resolution
 
 ## TypeScript & Composite Projects
 
