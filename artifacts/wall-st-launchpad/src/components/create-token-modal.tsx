@@ -96,121 +96,120 @@ export function CreateTokenModal({ isOpen, onClose }: { isOpen: boolean; onClose
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm"
+            className="fixed inset-0 z-50 bg-black/70"
           />
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="w-full max-w-lg bg-card border border-border rounded-2xl shadow-2xl overflow-hidden pointer-events-auto flex flex-col max-h-[90vh]"
+              className="w-full max-w-md bg-card border border-border rounded-xl overflow-hidden pointer-events-auto flex flex-col max-h-[90vh]"
             >
-              <div className="px-6 py-4 border-b border-border flex items-center justify-between bg-card/50">
-                <h2 className="text-xl font-bold">Launch New Token</h2>
+              <div className="px-5 py-4 border-b border-border flex items-center justify-between">
+                <h2 className="text-sm font-semibold text-foreground uppercase tracking-wide">Launch Token</h2>
                 <button
                   onClick={onClose}
-                  className="p-2 text-muted-foreground hover:text-foreground hover:bg-secondary rounded-lg transition-colors"
+                  className="p-1.5 text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  <X className="w-5 h-5" />
+                  <X className="w-4 h-4" />
                 </button>
               </div>
 
-              <div className="p-6 overflow-y-auto">
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+              <div className="p-5 overflow-y-auto">
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                   
                   {tickerError && (
-                    <div className="p-4 rounded-xl bg-destructive/10 border border-destructive/20 flex items-start gap-3 text-destructive">
-                      <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />
-                      <p className="text-sm font-medium">{tickerError}</p>
+                    <div className="px-4 py-3 rounded-lg bg-destructive/8 border border-destructive/20 flex items-start gap-2 text-destructive">
+                      <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+                      <p className="text-xs">{tickerError}</p>
                     </div>
                   )}
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                    <div className="space-y-2">
-                      <label className="text-sm font-medium text-muted-foreground">Token Name <span className="text-primary">*</span></label>
+                  <div className="space-y-4">
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Token Name</label>
                       <input
                         {...register("name")}
-                        className="w-full bg-input border border-border rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all placeholder:text-muted-foreground/50"
+                        className="w-full bg-secondary border border-border rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-primary/50 focus:ring-0 transition-colors placeholder:text-muted-foreground/40"
                         placeholder="e.g. Wall Street Bets"
                       />
-                      {errors.name && <p className="text-xs text-destructive">{errors.name.message}</p>}
+                      {errors.name && <p className="text-xs text-destructive flex items-center gap-1"><AlertCircle className="w-3 h-3"/>{errors.name.message}</p>}
                     </div>
 
-                    <div className="space-y-2">
+                    <div className="space-y-1.5">
                       <div className="flex justify-between items-center">
-                        <label className="text-sm font-medium text-muted-foreground">Ticker <span className="text-primary">*</span></label>
+                        <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Ticker</label>
                         <span className="text-xs font-mono text-muted-foreground">{tickerValue?.length || 0}/10</span>
                       </div>
                       <div className="relative">
-                        <span className="absolute left-4 top-3 text-muted-foreground font-mono">$</span>
+                        <span className="absolute left-3 top-2.5 text-muted-foreground/40 font-mono">$</span>
                         <input
                           {...register("ticker")}
-                          className="w-full bg-input border border-border rounded-xl pl-8 pr-10 py-3 text-sm font-mono uppercase focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all placeholder:text-muted-foreground/50"
+                          className="w-full bg-secondary border border-border rounded-lg pl-7 pr-9 py-2.5 text-sm font-mono uppercase focus:outline-none focus:border-primary/50 focus:ring-0 transition-colors placeholder:text-muted-foreground/40"
                           placeholder="WSB"
                           maxLength={10}
                         />
-                        <div className="absolute right-4 top-3.5">
-                          {isCheckingTicker && <Loader2 className="w-4 h-4 animate-spin text-muted-foreground" />}
+                        <div className="absolute right-3 top-3">
+                          {isCheckingTicker && <Loader2 className="w-3 h-3 animate-spin text-muted-foreground" />}
                           {!isCheckingTicker && tickerStatus && (
                             tickerStatus.available 
-                              ? <CheckCircle2 className="w-4 h-4 text-primary" />
-                              : <AlertCircle className="w-4 h-4 text-destructive" />
+                              ? <CheckCircle2 className="w-3 h-3 text-primary" />
+                              : <AlertCircle className="w-3 h-3 text-destructive" />
                           )}
                         </div>
                       </div>
-                      {errors.ticker && <p className="text-xs text-destructive">{errors.ticker.message}</p>}
+                      {errors.ticker && <p className="text-xs text-destructive flex items-center gap-1"><AlertCircle className="w-3 h-3"/>{errors.ticker.message}</p>}
                       {tickerStatus && !tickerStatus.available && (
                         <p className="text-xs text-destructive">Ticker in cooldown ({tickerStatus.minutesRemaining}m)</p>
                       )}
                     </div>
-                  </div>
 
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium text-muted-foreground">Description <span className="text-primary">*</span></label>
-                    <textarea
-                      {...register("description")}
-                      className="w-full bg-input border border-border rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all placeholder:text-muted-foreground/50 min-h-[100px] resize-y"
-                      placeholder="Describe your memecoin's mission and utility..."
-                    />
-                    {errors.description && <p className="text-xs text-destructive">{errors.description.message}</p>}
-                  </div>
-
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium text-muted-foreground">Image URL <span className="text-muted-foreground/50">(Optional)</span></label>
-                    <input
-                      {...register("imageUrl")}
-                      className="w-full bg-input border border-border rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all placeholder:text-muted-foreground/50"
-                      placeholder="https://example.com/logo.png"
-                    />
-                    {errors.imageUrl && <p className="text-xs text-destructive">{errors.imageUrl.message}</p>}
-                  </div>
-
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium text-muted-foreground">Bonding Curve Target (SOL)</label>
-                    <div className="flex items-center gap-3">
-                      <input
-                        type="number"
-                        {...register("bondingCurveTarget")}
-                        className="w-full bg-input border border-border rounded-xl px-4 py-3 text-sm font-mono focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Description</label>
+                      <textarea
+                        {...register("description")}
+                        className="w-full bg-secondary border border-border rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-primary/50 focus:ring-0 transition-colors placeholder:text-muted-foreground/40 min-h-[80px] resize-none"
+                        placeholder="Describe your memecoin..."
                       />
-                      <div className="h-12 px-4 bg-secondary rounded-xl flex items-center justify-center font-mono text-sm text-muted-foreground border border-border shrink-0">
-                        SOL
-                      </div>
+                      {errors.description && <p className="text-xs text-destructive flex items-center gap-1"><AlertCircle className="w-3 h-3"/>{errors.description.message}</p>}
                     </div>
-                    {errors.bondingCurveTarget && <p className="text-xs text-destructive">{errors.bondingCurveTarget.message}</p>}
-                    <p className="text-xs text-muted-foreground mt-1">Amount of SOL needed to automatically migrate to Raydium.</p>
+
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Image URL <span className="text-muted-foreground/50 lowercase normal-case">(Optional)</span></label>
+                      <input
+                        {...register("imageUrl")}
+                        className="w-full bg-secondary border border-border rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-primary/50 focus:ring-0 transition-colors placeholder:text-muted-foreground/40"
+                        placeholder="https://example.com/logo.png"
+                      />
+                      {errors.imageUrl && <p className="text-xs text-destructive flex items-center gap-1"><AlertCircle className="w-3 h-3"/>{errors.imageUrl.message}</p>}
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Bonding Curve Target (SOL)</label>
+                      <div className="flex items-center gap-2">
+                        <input
+                          type="number"
+                          {...register("bondingCurveTarget")}
+                          className="w-full bg-secondary border border-border rounded-lg px-3 py-2.5 text-sm font-mono focus:outline-none focus:border-primary/50 focus:ring-0 transition-colors"
+                        />
+                        <div className="h-[42px] px-3 bg-card rounded-lg flex items-center justify-center font-mono text-xs text-muted-foreground border border-border shrink-0">
+                          SOL
+                        </div>
+                      </div>
+                      {errors.bondingCurveTarget && <p className="text-xs text-destructive flex items-center gap-1"><AlertCircle className="w-3 h-3"/>{errors.bondingCurveTarget.message}</p>}
+                    </div>
                   </div>
 
-                  <div className="pt-4">
+                  <div className="pt-2">
                     <button
                       type="submit"
                       disabled={createToken.isPending || (tickerStatus && !tickerStatus.available)}
-                      className="w-full py-4 rounded-xl bg-primary text-primary-foreground font-bold uppercase tracking-wider glow-box hover:glow-box-hover disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2"
+                      className="btn-primary w-full py-2.5 text-sm font-semibold flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       {createToken.isPending ? (
                         <>
-                          <Loader2 className="w-5 h-5 animate-spin" />
-                          Deploying to Network...
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          Deploying...
                         </>
                       ) : (
                         "Launch Token"

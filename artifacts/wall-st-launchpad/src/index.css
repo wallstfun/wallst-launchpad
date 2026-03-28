@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700&family=JetBrains+Mono:wght@400;500&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 @plugin "@tailwindcss/typography";
@@ -45,37 +45,35 @@
 }
 
 :root {
-  /* Ultra dark trading terminal theme */
-  --background: 0 0% 3%;
-  --foreground: 0 0% 96%;
+  --background: 0 0% 2%;           /* #050505 */
+  --foreground: 0 0% 93%;          /* #ededed */
   
-  --card: 0 0% 5%;
-  --card-foreground: 0 0% 96%;
-  --card-border: 0 0% 12%;
+  --card: 0 0% 6%;                 /* #0f0f0f */
+  --card-foreground: 0 0% 93%;
+  --card-border: 0 0% 11%;         /* #1c1c1c */
   
-  --popover: 0 0% 5%;
-  --popover-foreground: 0 0% 96%;
-  --popover-border: 0 0% 12%;
+  --popover: 0 0% 6%;
+  --popover-foreground: 0 0% 93%;
+  --popover-border: 0 0% 11%;
   
-  --primary: 152 100% 50%; /* Neon Green #00ff88 */
+  --primary: 152 100% 50%;         /* #00ff88 */
   --primary-foreground: 0 0% 0%;
   
-  --secondary: 0 0% 10%;
-  --secondary-foreground: 0 0% 90%;
+  --secondary: 0 0% 9%;            /* #171717 */
+  --secondary-foreground: 0 0% 75%;
   
-  --muted: 0 0% 9%;
-  --muted-foreground: 0 0% 60%;
+  --muted: 0 0% 8%;
+  --muted-foreground: 0 0% 42%;    /* dimmer than before */
   
-  --accent: 152 100% 10%;
-  --accent-foreground: 152 100% 50%;
+  --accent: 0 0% 9%;
+  --accent-foreground: 0 0% 75%;
   
-  --destructive: 0 84% 60%;
+  --destructive: 0 72% 51%;
   --destructive-foreground: 0 0% 98%;
 
-  --border: 0 0% 12%;
-  --input: 0 0% 12%;
+  --border: 0 0% 10%;              /* #1a1a1a */
+  --input: 0 0% 9%;
   --ring: 152 100% 50%;
-
   --radius: 0.5rem;
 }
 
@@ -94,19 +92,35 @@
 }
 
 @layer utilities {
-  .glow-text {
-    text-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+  .terminal-card {
+    border-color: hsl(var(--border));
+    transition: border-color 0.15s ease;
   }
-  
-  .glow-box {
-    box-shadow: 0 0 30px -5px rgba(0, 255, 136, 0.2);
+  .terminal-card:hover {
+    border-color: hsl(0 0% 20%);
   }
-
-  .glow-box-hover:hover {
-    box-shadow: 0 0 40px -5px rgba(0, 255, 136, 0.3);
+  .btn-primary {
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    letter-spacing: 0.025em;
+    transition: opacity 0.15s ease;
   }
-  
-  .glass-panel {
-    @apply bg-card/60 backdrop-blur-xl border border-white/5;
+  .btn-primary:hover {
+    opacity: 0.88;
+  }
+  .btn-ghost {
+    background: transparent;
+    border: 1px solid hsl(var(--border));
+    color: hsl(var(--foreground));
+    border-radius: 8px;
+    font-size: 0.875rem;
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+  .btn-ghost:hover {
+    background: hsl(var(--secondary));
+    border-color: hsl(0 0% 18%);
   }
 }
