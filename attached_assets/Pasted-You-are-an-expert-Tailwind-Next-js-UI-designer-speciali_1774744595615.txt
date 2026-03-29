@@ -1,0 +1,36 @@
+You are an expert Tailwind + Next.js + UI designer specializing in premium dark finance / Wall Street terminal aesthetics.
+
+Task: Completely redesign the Solana Launchpad to look and feel **exactly like wallst.fun** (use the attached screenshot of wallst.fun as the visual reference).
+
+You have full permission to restructure the layout, move sections, change component placement, and redesign the overall page structure. The only things you must keep 100% intact are:
+
+- All Raydium LaunchLab functionality (Create Coin modal with bonding curve at 42 SOL target, automatic migration to Raydium pool)
+- Phantom wallet connection
+- Live Launches section with progress bars
+- 15-minute ticker cooldown logic
+- Any existing token creation / bonding curve code
+
+Exact wallst.fun style to match (use these hex values):
+- Background: deep navy-black (#0a0a1f → #05050f)
+- Cards/panels: dark navy (#16162a or #1a1a2e) with subtle glassmorphic blur + thin neon green borders/glow
+- Accent: bright neon green (#00ff9d) for all live dots, buttons, progress bars, highlights, and hover states
+- Text: white (#ffffff) for headings, soft gray-blue (#a0a0cc) for body
+- Top status bar style, header navigation feel, card shadows, glow effects, typography weight, and spacing — match wallst.fun exactly
+
+Recommended new structure (inspired by wallst.fun):
+- Top status bar (SYSTEM STATUS, SOL price, etc.)
+- Clean header with "W" logo + "WALL ST. LAUNCHPAD"
+- Hero / main dashboard area with stats cards (Total Launches, SOL Raised, etc.)
+- Prominent "Create Coin" button in the style of wallst.fun CTAs
+- Live Launches section styled as a professional trading feed
+
+Step-by-step:
+1. Analyze current code and wallst.fun screenshot.
+2. Redesign the full UI/layout to match wallst.fun’s premium dark finance aesthetic as closely as possible.
+3. Update globals.css, Tailwind config, layout.tsx, page.tsx, and all components accordingly.
+4. Keep every piece of Raydium + wallet functionality working.
+5. After changes, run `pnpm dev` and verify the site now feels like wallst.fun.
+
+Show me the major changes you make step by step.
+
+Start now.
