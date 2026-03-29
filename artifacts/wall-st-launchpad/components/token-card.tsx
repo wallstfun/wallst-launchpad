@@ -18,8 +18,13 @@ export function TokenCard({ token, index }: TokenCardProps) {
     Math.max(0, (token.solRaised / token.bondingCurveTarget) * 100)
   );
 
-  // Market cap: bonding curve SOL raised represents the curve's market cap
-  const marketCapSol = token.solRaised;
+  // Market cap formatted as $21.5k (using ~$150/SOL estimate for devnet display)
+  function formatMarketCap(sol: number): string {
+    const usd = sol * 150;
+    if (usd >= 1_000_000) return `$${(usd / 1_000_000).toFixed(1)}m`;
+    if (usd >= 1_000) return `$${(usd / 1_000).toFixed(1)}k`;
+    return `$${usd.toFixed(0)}`;
+  }
 
   const shortAddress = token.mintAddress
     ? `${token.mintAddress.slice(0, 8)}...${token.mintAddress.slice(-4)}`
@@ -40,16 +45,8 @@ export function TokenCard({ token, index }: TokenCardProps) {
     >
       <div className="p-4 flex flex-col gap-3">
 
-        {/* ── Header: rank + avatar (2×) + name/ticker + status ─────── */}
+        {/* ── Header: avatar (2×) + name/ticker + status ──────────────── */}
         <div className="flex items-start gap-3">
-          {/* Rank */}
-          <span
-            className="text-xs font-mono font-bold mt-1 shrink-0"
-            style={{ color: "rgba(148, 153, 187, 0.3)", minWidth: 20 }}
-          >
-            #{index + 1}
-          </span>
-
           {/* Avatar — 2× size (76 px) */}
           <div
             className="shrink-0 rounded-xl flex items-center justify-center overflow-hidden"
@@ -138,13 +135,7 @@ export function TokenCard({ token, index }: TokenCardProps) {
                 className="text-base font-bold font-mono leading-tight"
                 style={{ color: "#ffffff" }}
               >
-                {marketCapSol.toFixed(2)}{" "}
-                <span
-                  className="text-xs font-normal"
-                  style={{ color: "rgba(148, 153, 187, 0.5)" }}
-                >
-                  SOL
-                </span>
+                {formatMarketCap(token.solRaised)}
               </p>
             </div>
           </div>
