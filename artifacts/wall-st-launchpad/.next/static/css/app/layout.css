@@ -786,7 +786,7 @@
   initial-value: 0;
 }
 :root {
-  --background: 222 47% 11%;
+  --background: 217 62% 7%;
   --foreground: 210 40% 98%;
   --card: 222 47% 11%;
   --card-foreground: 210 40% 98%;
@@ -831,7 +831,7 @@
     -moz-osx-font-smoothing: grayscale;
     background: radial-gradient(
         ellipse 80% 60% at 50% -20%,
-        rgba(0, 255, 157, 0.04) 0%,
+        rgba(54, 211, 154, 0.04) 0%,
         transparent 70%
       ),
       hsl(var(--background));
@@ -851,28 +851,28 @@
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
   }
   .terminal-card:hover {
-    border-color: rgba(0, 255, 157, 0.35);
-    box-shadow: 0 0 24px rgba(0, 255, 157, 0.06),
-      inset 0 0 32px rgba(0, 255, 157, 0.03);
+    border-color: rgba(54, 211, 154, 0.35);
+    box-shadow: 0 0 24px rgba(54, 211, 154, 0.06),
+      inset 0 0 32px rgba(54, 211, 154, 0.03);
   }
   .btn-primary {
-    background: rgba(0, 255, 157, 0.07);
+    background: rgba(54, 211, 154, 0.07);
     border: 1px solid hsl(var(--primary));
     color: hsl(var(--primary));
     border-radius: 8px;
     font-weight: 600;
     font-size: 0.875rem;
     letter-spacing: 0.04em;
-    box-shadow: 0 0 14px rgba(0, 255, 157, 0.20);
+    box-shadow: 0 0 14px rgba(54, 211, 154, 0.20);
     transition: background 0.2s ease, box-shadow 0.2s ease;
     cursor: pointer;
   }
   .btn-primary:hover {
-    background: rgba(0, 255, 157, 0.13);
-    box-shadow: 0 0 24px rgba(0, 255, 157, 0.35), 0 0 8px rgba(0, 255, 157, 0.18);
+    background: rgba(54, 211, 154, 0.13);
+    box-shadow: 0 0 24px rgba(54, 211, 154, 0.35), 0 0 8px rgba(54, 211, 154, 0.18);
   }
   .btn-primary:active {
-    background: rgba(0, 255, 157, 0.18);
+    background: rgba(54, 211, 154, 0.18);
   }
   .btn-ghost {
     background: transparent;
@@ -884,9 +884,9 @@
     cursor: pointer;
   }
   .btn-ghost:hover {
-    border-color: rgba(0, 255, 157, 0.35);
+    border-color: rgba(54, 211, 154, 0.35);
     color: hsl(var(--primary));
-    background: rgba(0, 255, 157, 0.04);
+    background: rgba(54, 211, 154, 0.04);
   }
   .live-dot {
     width: 6px;
@@ -898,19 +898,19 @@
     flex-shrink: 0;
   }
   .progress-track {
-    background: rgba(0, 255, 157, 0.08);
+    background: rgba(54, 211, 154, 0.08);
     border-radius: 999px;
     overflow: hidden;
   }
   .progress-fill {
-    background: linear-gradient(90deg, #00cc7a, #00ff9d);
-    box-shadow: 0 0 8px rgba(0, 255, 157, 0.5);
+    background: linear-gradient(90deg, #2ab87e, #36d39a);
+    box-shadow: 0 0 8px rgba(54, 211, 154, 0.5);
     border-radius: 999px;
     transition: width 0.4s ease;
   }
   .stat-highlight {
     color: hsl(var(--primary));
-    text-shadow: 0 0 18px rgba(0, 255, 157, 0.5);
+    text-shadow: 0 0 18px rgba(54, 211, 154, 0.5);
   }
   .field-input {
     background: hsl(var(--muted));
@@ -922,8 +922,8 @@
   }
   .field-input:focus {
     outline: none;
-    border-color: rgba(0, 255, 157, 0.45);
-    box-shadow: 0 0 0 3px rgba(0, 255, 157, 0.08);
+    border-color: rgba(54, 211, 154, 0.45);
+    box-shadow: 0 0 0 3px rgba(54, 211, 154, 0.08);
   }
   .field-input::placeholder {
     color: hsl(var(--muted-foreground) / 40%);

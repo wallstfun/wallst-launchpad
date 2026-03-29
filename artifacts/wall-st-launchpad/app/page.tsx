@@ -76,7 +76,7 @@ export default function Home() {
     <SiteLayout>
       <div
         className="flex-1"
-        style={{ background: "#0f1729" }}
+        style={{ background: "#07101e" }}
       >
         <div className="container mx-auto px-5 py-8 max-w-7xl">
 

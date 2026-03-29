@@ -45,8 +45,8 @@
 
 /* ─── Palette — extracted verbatim from wallst.fun built CSS ─────────────── */
 :root {
-  /* Background — 222 47% 11% = #0f1729 */
-  --background: 222 47% 11%;
+  /* Background — 217 62% 7% = #07101e (main body) */
+  --background: 217 62% 7%;
   --foreground: 210 40% 98%;
 
   /* Card — same hue as background (wallst.fun uses identical values) */
@@ -113,7 +113,7 @@
     @apply font-sans antialiased bg-background text-foreground;
     background: radial-gradient(
         ellipse 80% 60% at 50% -20%,
-        rgba(0, 255, 157, 0.04) 0%,
+        rgba(54, 211, 154, 0.04) 0%,
         transparent 70%
       ),
       hsl(var(--background));
@@ -134,31 +134,31 @@
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
   }
   .terminal-card:hover {
-    border-color: rgba(0, 255, 157, 0.35);
+    border-color: rgba(54, 211, 154, 0.35);
     box-shadow:
-      0 0 24px rgba(0, 255, 157, 0.06),
-      inset 0 0 32px rgba(0, 255, 157, 0.03);
+      0 0 24px rgba(54, 211, 154, 0.06),
+      inset 0 0 32px rgba(54, 211, 154, 0.03);
   }
 
   /* Primary CTA — dark background + neon green outline + glow */
   .btn-primary {
-    background: rgba(0, 255, 157, 0.07);
+    background: rgba(54, 211, 154, 0.07);
     border: 1px solid hsl(var(--primary));
     color: hsl(var(--primary));
     border-radius: 8px;
     font-weight: 600;
     font-size: 0.875rem;
     letter-spacing: 0.04em;
-    box-shadow: 0 0 14px rgba(0, 255, 157, 0.20);
+    box-shadow: 0 0 14px rgba(54, 211, 154, 0.20);
     transition: background 0.2s ease, box-shadow 0.2s ease;
     cursor: pointer;
   }
   .btn-primary:hover {
-    background: rgba(0, 255, 157, 0.13);
-    box-shadow: 0 0 24px rgba(0, 255, 157, 0.35), 0 0 8px rgba(0, 255, 157, 0.18);
+    background: rgba(54, 211, 154, 0.13);
+    box-shadow: 0 0 24px rgba(54, 211, 154, 0.35), 0 0 8px rgba(54, 211, 154, 0.18);
   }
   .btn-primary:active {
-    background: rgba(0, 255, 157, 0.18);
+    background: rgba(54, 211, 154, 0.18);
   }
 
   /* Ghost / secondary buttons */
@@ -172,9 +172,9 @@
     cursor: pointer;
   }
   .btn-ghost:hover {
-    border-color: rgba(0, 255, 157, 0.35);
+    border-color: rgba(54, 211, 154, 0.35);
     color: hsl(var(--primary));
-    background: rgba(0, 255, 157, 0.04);
+    background: rgba(54, 211, 154, 0.04);
   }
 
   /* Pulsing live dot */
@@ -190,13 +190,13 @@
 
   /* Neon progress bar track */
   .progress-track {
-    background: rgba(0, 255, 157, 0.08);
+    background: rgba(54, 211, 154, 0.08);
     border-radius: 999px;
     overflow: hidden;
   }
   .progress-fill {
-    background: linear-gradient(90deg, #00cc7a, #00ff9d);
-    box-shadow: 0 0 8px rgba(0, 255, 157, 0.5);
+    background: linear-gradient(90deg, #2ab87e, #36d39a);
+    box-shadow: 0 0 8px rgba(54, 211, 154, 0.5);
     border-radius: 999px;
     transition: width 0.4s ease;
   }
@@ -204,7 +204,7 @@
   /* Stat value glow for the SOL raised number */
   .stat-highlight {
     color: hsl(var(--primary));
-    text-shadow: 0 0 18px rgba(0, 255, 157, 0.5);
+    text-shadow: 0 0 18px rgba(54, 211, 154, 0.5);
   }
 
   /* Form inputs */
@@ -218,8 +218,8 @@
   }
   .field-input:focus {
     outline: none;
-    border-color: rgba(0, 255, 157, 0.45);
-    box-shadow: 0 0 0 3px rgba(0, 255, 157, 0.08);
+    border-color: rgba(54, 211, 154, 0.45);
+    box-shadow: 0 0 0 3px rgba(54, 211, 154, 0.08);
   }
   .field-input::placeholder {
     color: hsl(var(--muted-foreground) / 40%);
