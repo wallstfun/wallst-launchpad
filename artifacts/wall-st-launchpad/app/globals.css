@@ -49,8 +49,8 @@
   --background: 217 62% 7%;
   --foreground: 210 40% 98%;
 
-  /* Card — slightly darker than body (#060c17) */
-  --card: 217 62% 5.5%;
+  /* Card — between old (#141c2e) and too-dark (#060c17) */
+  --card: 222 47% 9%;
   --card-foreground: 210 40% 98%;
   --card-border: 217 33% 17%;
 
