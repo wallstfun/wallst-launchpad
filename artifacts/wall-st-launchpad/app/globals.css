@@ -43,39 +43,40 @@
   --radius-xl: 1rem;
 }
 
-/* ─── Palette — deep navy × neon green ──────────────────────────────────── */
+/* ─── Palette — exact wallst.fun hex values ──────────────────────────────── */
 :root {
-  /* Deep navy background — #080818 */
-  --background: 240 56% 6%;
-  --foreground: 0 0% 97%;
+  /* Main background — #0a0a1f (deep navy-black) */
+  --background: 240 51% 8%;
+  --foreground: 0 0% 100%;
 
-  /* Card panels — #10102a */
-  --card: 240 50% 11%;
-  --card-foreground: 0 0% 97%;
+  /* Card/panel — #16162a */
+  --card: 240 32% 13%;
+  --card-foreground: 0 0% 100%;
 
-  --popover: 240 50% 11%;
-  --popover-foreground: 0 0% 97%;
+  --popover: 240 32% 13%;
+  --popover-foreground: 0 0% 100%;
 
   /* Neon green accent — #00ff9d */
   --primary: 157 100% 50%;
-  --primary-foreground: 240 56% 6%;
+  --primary-foreground: 240 51% 8%;
 
-  /* Elevated surfaces — #18183c */
-  --secondary: 240 46% 16%;
-  --secondary-foreground: 240 28% 72%;
+  /* Elevated surfaces */
+  --secondary: 240 30% 17%;
+  --secondary-foreground: 240 30% 71%;
 
-  --muted: 240 48% 13%;
-  --muted-foreground: 240 28% 58%;
+  /* Muted — body text is #a0a0cc */
+  --muted: 240 32% 11%;
+  --muted-foreground: 240 30% 71%;
 
-  --accent: 240 46% 16%;
-  --accent-foreground: 240 28% 72%;
+  --accent: 240 30% 17%;
+  --accent-foreground: 240 30% 71%;
 
   --destructive: 0 72% 55%;
   --destructive-foreground: 0 0% 98%;
 
-  /* Navy border with slight blue tint — #1c1c42 */
-  --border: 240 40% 18%;
-  --input: 240 48% 13%;
+  /* Border with blue tint */
+  --border: 240 30% 20%;
+  --input: 240 32% 11%;
   --ring: 157 100% 50%;
   --radius: 0.75rem;
 

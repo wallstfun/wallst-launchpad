@@ -17,15 +17,17 @@ export function SiteLayout({ children }: { children: ReactNode }) {
   const { connected, address, connect, disconnect } = useWallet();
 
   return (
-    <div className="min-h-screen flex flex-col text-foreground" style={{ fontFamily: "Inter, sans-serif" }}>
-
-      {/* ── Top status ticker bar ───────────────────────────────────── */}
+    <div
+      className="min-h-screen flex flex-col text-foreground"
+      style={{ fontFamily: "Inter, sans-serif", background: "#0a0a1f" }}
+    >
+      {/* ── Top status ticker bar (#05050f) ─────────────────────────── */}
       <div
         className="w-full hidden sm:flex items-center px-6 shrink-0"
         style={{
           height: 30,
-          background: "hsl(240 62% 4%)",
-          borderBottom: "1px solid hsl(240 42% 12%)",
+          background: "#05050f",
+          borderBottom: "1px solid rgba(160, 160, 204, 0.06)",
         }}
       >
         <div className="flex items-center gap-0 text-xs font-mono flex-1 overflow-hidden">
@@ -34,16 +36,20 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               {i > 0 && (
                 <span
                   className="mx-4 select-none"
-                  style={{ color: "hsl(240 40% 20%)" }}
+                  style={{ color: "rgba(160, 160, 204, 0.18)" }}
                 >
                   |
                 </span>
               )}
-              <span style={{ color: "hsl(240 28% 38%)" }}>{item.label}:&nbsp;</span>
+              <span style={{ color: "rgba(160, 160, 204, 0.45)" }}>
+                {item.label}:&nbsp;
+              </span>
               <span
                 style={{
-                  color: item.green ? "#00ff9d" : "hsl(240 28% 60%)",
-                  textShadow: item.green ? "0 0 12px rgba(0,255,157,0.6)" : "none",
+                  color: item.green ? "#00ff9d" : "#a0a0cc",
+                  textShadow: item.green
+                    ? "0 0 14px rgba(0, 255, 157, 0.65)"
+                    : "none",
                   fontWeight: item.green ? 700 : 400,
                 }}
               >
@@ -56,9 +62,15 @@ export function SiteLayout({ children }: { children: ReactNode }) {
         <div className="flex items-center gap-1.5 shrink-0 ml-4">
           <Activity
             className="w-3 h-3"
-            style={{ color: "#00ff9d", filter: "drop-shadow(0 0 4px #00ff9d)" }}
+            style={{
+              color: "#00ff9d",
+              filter: "drop-shadow(0 0 4px #00ff9d)",
+            }}
           />
-          <span className="text-xs font-mono" style={{ color: "hsl(240 28% 38%)" }}>
+          <span
+            className="text-xs font-mono"
+            style={{ color: "rgba(160, 160, 204, 0.4)" }}
+          >
             SOLANA DEVNET
           </span>
         </div>
@@ -68,37 +80,42 @@ export function SiteLayout({ children }: { children: ReactNode }) {
       <header
         className="sticky top-0 z-40 w-full shrink-0"
         style={{
-          background: "linear-gradient(180deg, hsl(240 56% 6% / 0.98) 0%, hsl(240 56% 6% / 0.94) 100%)",
+          background: "rgba(10, 10, 31, 0.97)",
           backdropFilter: "blur(24px)",
-          borderBottom: "1px solid hsl(240 40% 18%)",
+          borderBottom: "1px solid rgba(160, 160, 204, 0.08)",
         }}
       >
         <div className="container mx-auto px-4 md:px-6 h-[60px] flex items-center justify-between">
-
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5">
             <div
-              className="w-8 h-8 flex items-center justify-center font-black font-mono text-sm"
+              className="flex items-center justify-center font-black font-mono text-sm"
               style={{
-                background: "rgba(0, 255, 157, 0.1)",
+                width: 32,
+                height: 32,
+                background: "rgba(0, 255, 157, 0.08)",
                 border: "1px solid rgba(0, 255, 157, 0.5)",
                 borderRadius: 7,
                 color: "#00ff9d",
-                boxShadow: "0 0 16px rgba(0, 255, 157, 0.22)",
+                boxShadow:
+                  "0 0 18px rgba(0, 255, 157, 0.22), inset 0 0 12px rgba(0, 255, 157, 0.05)",
               }}
             >
               W
             </div>
             <div className="flex items-baseline gap-1.5">
               <span
-                className="font-bold text-base text-white"
-                style={{ letterSpacing: "-0.025em" }}
+                className="font-bold text-base"
+                style={{
+                  color: "#ffffff",
+                  letterSpacing: "-0.025em",
+                }}
               >
                 WALL ST.
               </span>
               <span
                 className="text-xs font-mono tracking-widest uppercase"
-                style={{ color: "rgba(0, 255, 157, 0.65)" }}
+                style={{ color: "rgba(0, 255, 157, 0.6)" }}
               >
                 LAUNCHPAD
               </span>
@@ -113,18 +130,19 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                 className="group flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all"
                 style={{
                   background: "rgba(0, 255, 157, 0.06)",
-                  border: "1px solid rgba(0, 255, 157, 0.25)",
+                  border: "1px solid rgba(0, 255, 157, 0.22)",
                   color: "#00ff9d",
                 }}
               >
                 <span
-                  className="rounded-full"
                   style={{
                     width: 6,
                     height: 6,
+                    borderRadius: "50%",
                     background: "#00ff9d",
                     boxShadow: "0 0 8px #00ff9d",
                     display: "inline-block",
+                    flexShrink: 0,
                   }}
                 />
                 <span className="font-mono text-xs">{address}</span>
@@ -136,7 +154,10 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                 className="btn-primary flex items-center gap-2 px-4 py-2"
               >
                 <Wallet className="w-3.5 h-3.5" />
-                <span className="text-xs font-semibold" style={{ letterSpacing: "0.03em" }}>
+                <span
+                  className="text-xs font-semibold"
+                  style={{ letterSpacing: "0.03em" }}
+                >
                   Connect Phantom
                 </span>
               </button>
@@ -151,12 +172,15 @@ export function SiteLayout({ children }: { children: ReactNode }) {
       {/* ── Footer ─────────────────────────────────────────────────── */}
       <footer
         className="mt-20 py-8"
-        style={{ borderTop: "1px solid hsl(240 40% 15%)" }}
+        style={{ borderTop: "1px solid rgba(160, 160, 204, 0.07)" }}
       >
         <div className="container mx-auto px-4 md:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <span className="live-dot" />
-            <p className="text-xs font-mono" style={{ color: "hsl(240 28% 38%)" }}>
+            <p
+              className="text-xs font-mono"
+              style={{ color: "rgba(160, 160, 204, 0.4)" }}
+            >
               © {new Date().getFullYear()} Wall St. Launchpad — Solana Devnet
             </p>
           </div>
@@ -166,12 +190,13 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                 key={link}
                 href="#"
                 className="text-xs font-medium transition-colors"
-                style={{ color: "hsl(240 28% 38%)" }}
+                style={{ color: "rgba(160, 160, 204, 0.4)" }}
                 onMouseEnter={(e) =>
                   ((e.target as HTMLElement).style.color = "#00ff9d")
                 }
                 onMouseLeave={(e) =>
-                  ((e.target as HTMLElement).style.color = "hsl(240 28% 38%)")
+                  ((e.target as HTMLElement).style.color =
+                    "rgba(160, 160, 204, 0.4)")
                 }
               >
                 {link}
