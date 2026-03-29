@@ -46,12 +46,12 @@ function TickerItem({
     );
   return (
     <span className="inline-flex items-center gap-1.5 font-mono text-xs">
-      <span style={{ color: "rgba(148, 163, 184, 0.45)" }}>{seg.label}:</span>
+      <span style={{ color: "#ffffff", fontWeight: 700 }}>{seg.label}:</span>
       <span
         style={{
-          color: seg.green ? "#36d39a" : "#a0a0cc",
-          textShadow: seg.green ? "0 0 12px rgba(0,255,157,0.7)" : "none",
-          fontWeight: seg.green ? 700 : 400,
+          color: seg.green ? "#36d39a" : "#ffffff",
+          textShadow: seg.green ? "0 0 12px rgba(54, 211, 154, 0.7)" : "none",
+          fontWeight: 700,
         }}
       >
         {seg.value}

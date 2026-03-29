@@ -26,7 +26,7 @@ function StatPanel({
     <div
       className="rounded-xl p-4 flex flex-col gap-2"
       style={{
-        background: "#0c1222",
+        background: "#0e1425",
         border: "1px solid rgba(148, 163, 184, 0.08)",
       }}
     >
@@ -202,7 +202,7 @@ export default function Home() {
                     key={i}
                     className="h-[280px] rounded-xl animate-pulse"
                     style={{
-                      background: "#0c1222",
+                      background: "#0e1425",
                       border: "1px solid rgba(148, 163, 184, 0.06)",
                     }}
                   />
