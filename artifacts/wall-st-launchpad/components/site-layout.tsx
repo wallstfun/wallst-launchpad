@@ -100,7 +100,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
       <header
         className="sticky top-0 z-40 w-full shrink-0"
         style={{
-          background: "rgba(15, 23, 41, 0.97)",
+          background: "rgba(7, 16, 30, 0.97)",
           backdropFilter: "blur(24px)",
           borderBottom: "1px solid rgba(148, 163, 184, 0.07)",
         }}
