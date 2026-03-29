@@ -139,46 +139,6 @@ export default function Home() {
                 Create Coin
               </button>
 
-              {/* SOL raised badge */}
-              <div
-                className="flex flex-col items-end px-4 py-2 rounded-lg"
-                style={{
-                  background: "rgba(0, 255, 157, 0.06)",
-                  border: "1px solid rgba(0, 255, 157, 0.2)",
-                }}
-              >
-                <span
-                  className="text-xs font-mono uppercase"
-                  style={{ color: "rgba(0, 255, 157, 0.6)", letterSpacing: "0.08em" }}
-                >
-                  SOL RAISED
-                </span>
-                <span
-                  className="font-black font-mono text-lg leading-tight"
-                  style={{
-                    color: "#00ff9d",
-                    textShadow: "0 0 18px rgba(0,255,157,0.4)",
-                  }}
-                >
-                  {totalRaised.toFixed(4)} SOL
-                </span>
-                <span
-                  className="flex items-center gap-1 text-xs font-mono"
-                  style={{ color: "rgba(0, 255, 157, 0.6)" }}
-                >
-                  <span
-                    style={{
-                      width: 5,
-                      height: 5,
-                      borderRadius: "50%",
-                      background: "#00ff9d",
-                      boxShadow: "0 0 6px #00ff9d",
-                      display: "inline-block",
-                    }}
-                  />
-                  {liveCount} Live
-                </span>
-              </div>
             </div>
           </div>
 

@@ -45,38 +45,38 @@
 
 /* ─── Palette — exact wallst.fun hex values ──────────────────────────────── */
 :root {
-  /* Main background — #0a0a1f (deep navy-black) */
-  --background: 240 51% 8%;
+  /* Main background — #0c0e14 (dark charcoal, matches wallst.fun) */
+  --background: 222 10% 6%;
   --foreground: 0 0% 100%;
 
-  /* Card/panel — #16162a */
-  --card: 240 32% 13%;
+  /* Card/panel — #141620 */
+  --card: 230 18% 10%;
   --card-foreground: 0 0% 100%;
 
-  --popover: 240 32% 13%;
+  --popover: 230 18% 10%;
   --popover-foreground: 0 0% 100%;
 
   /* Neon green accent — #00ff9d */
   --primary: 157 100% 50%;
-  --primary-foreground: 240 51% 8%;
+  --primary-foreground: 222 10% 6%;
 
   /* Elevated surfaces */
-  --secondary: 240 30% 17%;
+  --secondary: 230 14% 13%;
   --secondary-foreground: 240 30% 71%;
 
   /* Muted — body text is #a0a0cc */
-  --muted: 240 32% 11%;
+  --muted: 230 18% 9%;
   --muted-foreground: 240 30% 71%;
 
-  --accent: 240 30% 17%;
+  --accent: 230 14% 13%;
   --accent-foreground: 240 30% 71%;
 
   --destructive: 0 72% 55%;
   --destructive-foreground: 0 0% 98%;
 
-  /* Border with blue tint */
-  --border: 240 30% 20%;
-  --input: 240 32% 11%;
+  /* Very subtle borders */
+  --border: 230 14% 16%;
+  --input: 230 18% 9%;
   --ring: 157 100% 50%;
   --radius: 0.75rem;
 

@@ -105,7 +105,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
           borderBottom: "1px solid rgba(160, 160, 204, 0.07)",
         }}
       >
-        <div className="px-5 h-[54px] flex items-center gap-4">
+        <div className="max-w-7xl mx-auto w-full px-5 h-[54px] flex items-center gap-4">
 
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 shrink-0">
