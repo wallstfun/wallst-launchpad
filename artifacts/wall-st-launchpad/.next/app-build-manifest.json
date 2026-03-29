@@ -10,16 +10,6 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/page.js"
-    ],
-    "/api/launchpad/tokens/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/launchpad/tokens/route.js"
-    ],
-    "/api/launchpad/check-ticker/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/launchpad/check-ticker/route.js"
     ]
   }
 }

@@ -73,14 +73,14 @@ export function SiteLayout({ children }: { children: ReactNode }) {
   return (
     <div
       className="min-h-screen flex flex-col text-foreground"
-      style={{ fontFamily: "Inter, sans-serif", background: "#0a0a1f" }}
+      style={{ fontFamily: "Inter, sans-serif", background: "#0d0f1a" }}
     >
       {/* ── Scrolling ticker (wallst.fun style) ─────────────────────── */}
       <div
         className="w-full overflow-hidden shrink-0"
         style={{
           height: 30,
-          background: "#05050f",
+          background: "#070810",
           borderBottom: "1px solid rgba(160, 160, 204, 0.05)",
         }}
       >
@@ -100,7 +100,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
       <header
         className="sticky top-0 z-40 w-full shrink-0"
         style={{
-          background: "rgba(10, 10, 31, 0.97)",
+          background: "rgba(13, 15, 26, 0.97)",
           backdropFilter: "blur(24px)",
           borderBottom: "1px solid rgba(160, 160, 204, 0.07)",
         }}

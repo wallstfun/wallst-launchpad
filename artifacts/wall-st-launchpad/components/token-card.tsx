@@ -18,8 +18,11 @@ export function TokenCard({ token, index }: TokenCardProps) {
     Math.max(0, (token.solRaised / token.bondingCurveTarget) * 100)
   );
 
+  // Market cap: bonding curve SOL raised represents the curve's market cap
+  const marketCapSol = token.solRaised;
+
   const shortAddress = token.mintAddress
-    ? `${token.mintAddress.slice(0, 6)}...${token.mintAddress.slice(-4)}`
+    ? `${token.mintAddress.slice(0, 8)}...${token.mintAddress.slice(-4)}`
     : "pending...";
 
   return (
@@ -28,34 +31,33 @@ export function TokenCard({ token, index }: TokenCardProps) {
       onMouseLeave={() => setHovered(false)}
       className="rounded-xl flex flex-col gap-0 overflow-hidden cursor-pointer transition-all duration-150"
       style={{
-        background: hovered ? "#1e1e38" : "#16162a",
+        background: hovered ? "#1a1c2e" : "#141628",
         border: hovered
-          ? "1px solid rgba(0, 255, 157, 0.18)"
-          : "1px solid rgba(160, 160, 204, 0.07)",
+          ? "1px solid rgba(0, 255, 157, 0.2)"
+          : "1px solid rgba(148, 153, 187, 0.08)",
         boxShadow: hovered ? "0 4px 30px rgba(0,255,157,0.04)" : "none",
       }}
     >
-      {/* ── Card body ────────────────────────────────────────────── */}
       <div className="p-4 flex flex-col gap-3">
 
-        {/* Header row: avatar + name + status */}
-        <div className="flex items-center gap-3">
+        {/* ── Header: rank + avatar (2×) + name/ticker + status ─────── */}
+        <div className="flex items-start gap-3">
           {/* Rank */}
           <span
-            className="text-xs font-mono font-bold shrink-0"
-            style={{ color: "rgba(160, 160, 204, 0.3)", minWidth: 16 }}
+            className="text-xs font-mono font-bold mt-1 shrink-0"
+            style={{ color: "rgba(148, 153, 187, 0.3)", minWidth: 20 }}
           >
             #{index + 1}
           </span>
 
-          {/* Avatar */}
+          {/* Avatar — 2× size (76 px) */}
           <div
-            className="shrink-0 rounded-full flex items-center justify-center overflow-hidden"
+            className="shrink-0 rounded-xl flex items-center justify-center overflow-hidden"
             style={{
-              width: 38,
-              height: 38,
+              width: 76,
+              height: 76,
               background: "#1a1a32",
-              border: "1px solid rgba(160, 160, 204, 0.1)",
+              border: "1px solid rgba(148, 153, 187, 0.1)",
             }}
           >
             {token.imageUrl ? (
@@ -66,7 +68,7 @@ export function TokenCard({ token, index }: TokenCardProps) {
               />
             ) : (
               <span
-                className="font-black font-mono text-sm"
+                className="font-black font-mono text-2xl"
                 style={{ color: "#00ff9d" }}
               >
                 {token.ticker.charAt(0)}
@@ -74,122 +76,116 @@ export function TokenCard({ token, index }: TokenCardProps) {
             )}
           </div>
 
-          {/* Name + ticker */}
-          <div className="flex-1 min-w-0">
-            <p
-              className="font-bold text-sm leading-tight line-clamp-1"
-              style={{ color: "#ffffff" }}
-              title={token.name}
-            >
-              {token.name}
-            </p>
-            <p
-              className="text-xs font-mono"
-              style={{ color: "rgba(160, 160, 204, 0.6)" }}
-            >
-              {token.ticker}
-            </p>
-          </div>
+          {/* Name + ticker + status */}
+          <div className="flex-1 min-w-0 flex flex-col gap-1 pt-0.5">
+            <div className="flex items-start justify-between gap-2">
+              <div>
+                <p
+                  className="font-bold text-sm leading-tight line-clamp-1"
+                  style={{ color: "#ffffff" }}
+                  title={token.name}
+                >
+                  {token.name}
+                </p>
+                <p
+                  className="text-xs font-mono mt-0.5"
+                  style={{ color: "rgba(148, 153, 187, 0.6)" }}
+                >
+                  {token.ticker}
+                </p>
+              </div>
 
-          {/* Status */}
-          {token.migrated ? (
-            <div
-              className="flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-mono font-semibold shrink-0"
-              style={{
-                background: "rgba(0, 255, 157, 0.08)",
-                border: "1px solid rgba(0, 255, 157, 0.25)",
-                color: "#00ff9d",
-              }}
-            >
-              <CheckCircle2 className="w-3 h-3" />
-              Done
+              {/* Status badge */}
+              {token.migrated ? (
+                <div
+                  className="flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-mono font-semibold shrink-0"
+                  style={{
+                    background: "rgba(0, 255, 157, 0.08)",
+                    border: "1px solid rgba(0, 255, 157, 0.25)",
+                    color: "#00ff9d",
+                  }}
+                >
+                  <CheckCircle2 className="w-3 h-3" />
+                  Done
+                </div>
+              ) : (
+                <div
+                  className="flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs font-mono shrink-0"
+                  style={{
+                    background: "rgba(0, 255, 157, 0.05)",
+                    border: "1px solid rgba(0, 255, 157, 0.15)",
+                    color: "rgba(0, 255, 157, 0.85)",
+                  }}
+                >
+                  <span className="live-dot" style={{ width: 5, height: 5 }} />
+                  LIVE
+                </div>
+              )}
             </div>
-          ) : (
-            <div
-              className="flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs font-mono shrink-0"
-              style={{
-                background: "rgba(0, 255, 157, 0.05)",
-                border: "1px solid rgba(0, 255, 157, 0.15)",
-                color: "rgba(0, 255, 157, 0.85)",
-              }}
-            >
-              <span className="live-dot" style={{ width: 5, height: 5 }} />
-              LIVE
+
+            {/* Market cap inline with avatar area */}
+            <div className="mt-1">
+              <p
+                className="text-xs font-mono uppercase mb-0.5"
+                style={{
+                  color: "rgba(148, 153, 187, 0.4)",
+                  letterSpacing: "0.08em",
+                }}
+              >
+                MARKET CAP
+              </p>
+              <p
+                className="text-base font-bold font-mono leading-tight"
+                style={{ color: "#ffffff" }}
+              >
+                {marketCapSol.toFixed(2)}{" "}
+                <span
+                  className="text-xs font-normal"
+                  style={{ color: "rgba(148, 153, 187, 0.5)" }}
+                >
+                  SOL
+                </span>
+              </p>
             </div>
-          )}
+          </div>
         </div>
 
-        {/* Description */}
+        {/* ── Description ──────────────────────────────────────────── */}
         {token.description && (
           <p
             className="text-xs leading-relaxed line-clamp-2"
-            style={{ color: "#a0a0cc" }}
+            style={{ color: "#9499bb" }}
           >
             {token.description}
           </p>
         )}
 
-        {/* Stats grid: 24h VOL style */}
-        <div className="grid grid-cols-2 gap-2">
-          <div>
-            <p
-              className="text-xs font-mono uppercase mb-0.5"
-              style={{ color: "rgba(160, 160, 204, 0.4)", letterSpacing: "0.08em" }}
-            >
-              SOL RAISED
-            </p>
-            <p
-              className="text-sm font-bold font-mono"
-              style={{ color: "#ffffff" }}
-            >
-              {token.solRaised.toFixed(2)}{" "}
-              <span style={{ color: "rgba(160, 160, 204, 0.5)", fontSize: 11 }}>
-                SOL
-              </span>
-            </p>
-          </div>
-          <div>
-            <p
-              className="text-xs font-mono uppercase mb-0.5"
-              style={{ color: "rgba(160, 160, 204, 0.4)", letterSpacing: "0.08em" }}
-            >
-              TARGET
-            </p>
-            <p
-              className="text-sm font-bold font-mono"
-              style={{ color: "#ffffff" }}
-            >
-              {token.bondingCurveTarget}{" "}
-              <span style={{ color: "rgba(160, 160, 204, 0.5)", fontSize: 11 }}>
-                SOL
-              </span>
-            </p>
-          </div>
-        </div>
-
-        {/* Contract address */}
+        {/* ── Contract address ─────────────────────────────────────── */}
         <div>
           <p
-            className="text-xs font-mono uppercase mb-1"
-            style={{ color: "rgba(160, 160, 204, 0.4)", letterSpacing: "0.08em" }}
+            className="text-xs font-mono uppercase mb-0.5"
+            style={{
+              color: "rgba(148, 153, 187, 0.4)",
+              letterSpacing: "0.08em",
+            }}
           >
             CONTRACT ADDRESS
           </p>
           <p
             className="text-xs font-mono"
-            style={{ color: "rgba(160, 160, 204, 0.6)" }}
+            style={{ color: "rgba(148, 153, 187, 0.55)" }}
           >
             {shortAddress}
           </p>
         </div>
 
-        {/* Bonding progress */}
+        {/* ── Bonding progress ─────────────────────────────────────── */}
         <div>
           <div className="flex items-center justify-between mb-1.5">
             <p
               className="text-xs font-mono uppercase"
               style={{
-                color: "rgba(160, 160, 204, 0.4)",
+                color: "rgba(148, 153, 187, 0.4)",
                 letterSpacing: "0.08em",
               }}
             >
@@ -224,10 +220,10 @@ export function TokenCard({ token, index }: TokenCardProps) {
         </div>
       </div>
 
-      {/* ── Footer button — matches wallst.fun "Trade on Terminal" ─── */}
+      {/* ── Footer button ─────────────────────────────────────────── */}
       <div
         className="px-4 py-3"
-        style={{ borderTop: "1px solid rgba(160, 160, 204, 0.06)" }}
+        style={{ borderTop: "1px solid rgba(148, 153, 187, 0.06)" }}
       >
         <button
           className="w-full flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-semibold transition-all"
@@ -255,7 +251,7 @@ export function TokenCard({ token, index }: TokenCardProps) {
 
         <p
           className="text-center text-xs font-mono mt-2"
-          style={{ color: "rgba(160, 160, 204, 0.3)" }}
+          style={{ color: "rgba(148, 153, 187, 0.3)" }}
         >
           {formatDistanceToNow(new Date(token.createdAt), { addSuffix: true })}
         </p>

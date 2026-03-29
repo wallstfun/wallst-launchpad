@@ -45,37 +45,37 @@
 
 /* ─── Palette — exact wallst.fun hex values ──────────────────────────────── */
 :root {
-  /* Main background — #0a0a1f */
-  --background: 240 51% 8%;
+  /* Main background — #0d0f1a (exact wallst.fun deep cool navy) */
+  --background: 234 28% 8%;
   --foreground: 0 0% 100%;
 
-  /* Card/panel — #16162a */
-  --card: 240 32% 13%;
+  /* Card/panel — #141628 */
+  --card: 236 28% 11%;
   --card-foreground: 0 0% 100%;
 
-  --popover: 240 32% 13%;
+  --popover: 236 28% 11%;
   --popover-foreground: 0 0% 100%;
 
   /* Neon green — #00ff9d */
   --primary: 157 100% 50%;
-  --primary-foreground: 240 51% 8%;
+  --primary-foreground: 234 28% 8%;
 
   /* Elevated surfaces */
-  --secondary: 240 30% 17%;
-  --secondary-foreground: 240 30% 71%;
+  --secondary: 234 24% 15%;
+  --secondary-foreground: 234 26% 65%;
 
-  /* Body text — #a0a0cc */
-  --muted: 240 32% 11%;
-  --muted-foreground: 240 30% 71%;
+  /* Body text — #9499bb */
+  --muted: 236 28% 10%;
+  --muted-foreground: 234 26% 65%;
 
-  --accent: 240 30% 17%;
-  --accent-foreground: 240 30% 71%;
+  --accent: 234 24% 15%;
+  --accent-foreground: 234 26% 65%;
 
   --destructive: 0 72% 55%;
   --destructive-foreground: 0 0% 98%;
 
-  --border: 240 30% 20%;
-  --input: 240 32% 11%;
+  --border: 234 24% 18%;
+  --input: 236 28% 10%;
   --ring: 157 100% 50%;
   --radius: 0.75rem;
 

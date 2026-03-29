@@ -26,8 +26,8 @@ function StatPanel({
     <div
       className="rounded-xl p-4 flex flex-col gap-2"
       style={{
-        background: "#16162a",
-        border: "1px solid rgba(160, 160, 204, 0.07)",
+        background: "#141628",
+        border: "1px solid rgba(148, 153, 187, 0.08)",
       }}
     >
       <div className="flex items-center justify-between">
@@ -76,7 +76,7 @@ export default function Home() {
     <SiteLayout>
       <div
         className="flex-1"
-        style={{ background: "#0a0a1f" }}
+        style={{ background: "#0d0f1a" }}
       >
         <div className="container mx-auto px-5 py-8 max-w-7xl">
 
