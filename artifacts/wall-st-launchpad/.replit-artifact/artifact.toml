@@ -19,12 +19,7 @@ run = "pnpm --filter @workspace/wall-st-launchpad run dev"
 
 [services.production]
 build = [ "pnpm", "--filter", "@workspace/wall-st-launchpad", "run", "build" ]
-publicDir = "artifacts/wall-st-launchpad/dist/public"
-serve = "static"
-
-[[services.production.rewrites]]
-from = "/*"
-to = "/index.html"
+run = [ "pnpm", "--filter", "@workspace/wall-st-launchpad", "run", "start" ]
 
 [services.env]
 PORT = "24644"
