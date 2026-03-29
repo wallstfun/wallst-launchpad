@@ -74,6 +74,15 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   type __Unused = __Check
 }
 
+// Validate ../../app/api/launchpad/route.ts
+{
+  type __IsExpected<Specific extends RouteHandlerConfig<"/api/launchpad">> = Specific
+  const handler = {} as typeof import("../../app/api/launchpad/route.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 // Validate ../../app/api/launchpad/token-metadata/route.ts
 {
   type __IsExpected<Specific extends RouteHandlerConfig<"/api/launchpad/token-metadata">> = Specific

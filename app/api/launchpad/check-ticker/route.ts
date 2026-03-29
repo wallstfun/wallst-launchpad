@@ -1,36 +1,39 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from 'redis';
-
-const COOLDOWN_MINUTES = 15;
-const redis = createClient({ url: process.env.REDIS_URL! });
-
-redis.on('error', (err) => console.error('Redis Client Error', err));
+import { redis } from '@/lib/redis';   // Relative path from app/api/launchpad/check-ticker/
 
 export async function GET(request: NextRequest) {
   try {
-    await redis.connect();
+    const ticker = request.nextUrl.searchParams.get('ticker')?.toUpperCase().trim();
 
-    const ticker = request.nextUrl.searchParams.get("ticker");
     if (!ticker) {
-      await redis.quit();
-      return NextResponse.json({ error: "ticker is required" }, { status: 400 });
+      return NextResponse.json({ error: 'Ticker is required' }, { status: 400 });
     }
 
-    const upperTicker = ticker.toUpperCase();
-    const key = `cooldown:${upperTicker}`;
-    const lastLaunch = await redis.get(key);
+    const key = `cooldown:${ticker}`;
 
-    if (lastLaunch && Date.now() - parseInt(lastLaunch as string) < COOLDOWN_MINUTES * 60 * 1000) {
-      const minutesLeft = Math.ceil((COOLDOWN_MINUTES * 60 * 1000 - (Date.now() - parseInt(lastLaunch as string))) / 60000);
-      await redis.quit();
-      return NextResponse.json({ onCooldown: true, minutesRemaining: minutesLeft });
+    const cooldownUntil = await redis.get(key);
+
+    if (cooldownUntil && Number(cooldownUntil) > Date.now()) {
+      const remainingMs = Number(cooldownUntil) - Date.now();
+      const minutesRemaining = Math.ceil(remainingMs / 60000);
+
+      return NextResponse.json({
+        onCooldown: true,
+        minutesRemaining: Math.max(1, minutesRemaining)
+      });
     }
 
-    await redis.quit();
+    // Set 15 min cooldown
+    const expiresAt = Date.now() + 15 * 60 * 1000;
+    await redis.set(key, expiresAt.toString(), { ex: 900 });
+
     return NextResponse.json({ onCooldown: false });
 
-  } catch (error) {
-    console.error(error);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+  } catch (error: any) {
+    console.error('Check-ticker full error:', error);
+    return NextResponse.json({ 
+      error: 'Internal server error', 
+      details: error?.message || String(error) 
+    }, { status: 500 });
   }
 }

@@ -1,25 +1,9 @@
 {
   "pages": {
-    "/layout": [
+    "/api/launchpad/check-ticker/route": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/layout.css",
-      "static/chunks/app/layout.js"
-    ],
-    "/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/page.js"
-    ],
-    "/api/sol-price/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/sol-price/route.js"
-    ],
-    "/api/launchpad/tokens/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/launchpad/tokens/route.js"
+      "static/chunks/app/api/launchpad/check-ticker/route.js"
     ]
   }
 }
