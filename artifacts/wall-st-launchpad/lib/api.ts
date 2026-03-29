@@ -25,13 +25,39 @@ export interface CreateTokenInput {
   mintAddress: string | null;
 }
 
+export interface SolPrice {
+  price: number | null;
+  cachedAt: number;
+  stale: boolean;
+}
+
 // ─── Query keys ────────────────────────────────────────────────────────────
 
 export function getGetTokensQueryKey() {
   return ["/api/launchpad/tokens"] as const;
 }
 
+export function getSolPriceQueryKey() {
+  return ["/api/sol-price"] as const;
+}
+
 // ─── Hooks ─────────────────────────────────────────────────────────────────
+
+export function useGetSolPrice(
+  options?: Omit<UseQueryOptions<SolPrice>, "queryKey" | "queryFn">
+) {
+  return useQuery<SolPrice>({
+    queryKey: getSolPriceQueryKey(),
+    queryFn: async () => {
+      const res = await fetch("/api/sol-price");
+      if (!res.ok) throw new Error("Failed to fetch SOL price");
+      return res.json();
+    },
+    refetchInterval: 120_000,
+    staleTime: 60_000,
+    ...options,
+  });
+}
 
 export function useGetTokens(
   options?: Omit<UseQueryOptions<Token[]>, "queryKey" | "queryFn">

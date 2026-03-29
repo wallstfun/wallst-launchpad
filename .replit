@@ -32,3 +32,4 @@ channel = "stable-25_05"
 
 [userenv.shared]
 VITE_RPC_URL = "https://api.devnet.solana.com"
+COINGECKO_API_KEY = "CG-Ya2RSVi5x9rdA26UiCVzf3kJ"

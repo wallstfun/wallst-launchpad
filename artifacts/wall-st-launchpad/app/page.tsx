@@ -4,7 +4,7 @@ import { useState } from "react";
 import { SiteLayout } from "@/components/site-layout";
 import { TokenCard } from "@/components/token-card";
 import { CreateTokenModal } from "@/components/create-token-modal";
-import { useGetTokens } from "@/lib/api";
+import { useGetTokens, useGetSolPrice } from "@/lib/api";
 import { PLATFORM_FEE_PERCENT } from "@/lib/launchpad";
 import { Layers, TrendingUp, ArrowUpRight, Shield, Plus } from "lucide-react";
 
@@ -67,10 +67,16 @@ function StatPanel({
 export default function Home() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const { data: tokens, isLoading, refetch } = useGetTokens();
+  const { data: solPriceData } = useGetSolPrice();
 
   const totalRaised = tokens?.reduce((a, t) => a + t.solRaised, 0) || 0;
   const migratedCount = tokens?.filter((t) => t.migrated).length || 0;
   const liveCount = tokens?.filter((t) => !t.migrated).length || 0;
+
+  const solPrice = solPriceData?.price ?? null;
+  const solPriceDisplay = solPrice !== null
+    ? `$${solPrice.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+    : "—";
 
   return (
     <SiteLayout>
@@ -134,7 +140,7 @@ export default function Home() {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-8">
             <StatPanel
               label="SOL Price"
-              value={`$${totalRaised.toFixed(2)}`}
+              value={solPriceDisplay}
               sub={`${liveCount} active launches`}
               highlight={true}
               icon={TrendingUp}
