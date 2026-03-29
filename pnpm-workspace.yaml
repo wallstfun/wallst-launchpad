@@ -34,6 +34,7 @@ minimumReleaseAge: 1440
 minimumReleaseAgeExclude:
   - '@replit/*'
   - stripe-replit-sync
+  - '@raydium-io/raydium-sdk-v2'
 
 onlyBuiltDependencies:
   - '@swc/core'
