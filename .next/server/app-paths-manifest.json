@@ -1,0 +1,5 @@
+{
+  "/api/launchpad/tokens/route": "app/api/launchpad/tokens/route.js",
+  "/api/sol-price/route": "app/api/sol-price/route.js",
+  "/page": "app/page.js"
+}
