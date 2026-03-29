@@ -3,14 +3,68 @@
 import { ReactNode } from "react";
 import { useWallet } from "@/hooks/use-wallet";
 import Link from "next/link";
-import { Wallet, LogOut, Activity } from "lucide-react";
+import {
+  Wallet,
+  LogOut,
+  LayoutDashboard,
+  Zap,
+  Info,
+  Settings,
+} from "lucide-react";
 
-const STATUS_ITEMS = [
-  { label: "SYSTEM", value: "ONLINE", green: true },
+/* ─── Ticker content — duplicated for seamless loop ──────────────── */
+const TICKER_SEGMENTS = [
+  { label: "SYSTEM STATUS", value: "ONLINE", green: true },
+  null,
+  { label: "PLATFORM FEE", value: "0.75%", green: false },
+  null,
   { label: "NETWORK", value: "SOL DEVNET", green: false },
-  { label: "FEE RATE", value: "0.75%", green: false },
-  { label: "PROGRAM", value: "LanMV9s...J3uj", green: false },
-  { label: "STATUS", value: "OPERATIONAL", green: false },
+  null,
+  { label: "WALL ST.", value: "LAUNCHPAD", green: false },
+  null,
+  { label: "RAYDIUM", value: "LAUNCHLAB", green: false },
+  null,
+  { label: "BONDING CURVE", value: "42 SOL TARGET", green: false },
+  null,
+  { label: "PHANTOM", value: "REQUIRED", green: false },
+  null,
+];
+
+function TickerItem({
+  seg,
+}: {
+  seg: { label: string; value: string; green: boolean } | null;
+}) {
+  if (!seg)
+    return (
+      <span
+        className="mx-5 select-none font-mono"
+        style={{ color: "rgba(160, 160, 204, 0.2)" }}
+      >
+        ///
+      </span>
+    );
+  return (
+    <span className="inline-flex items-center gap-1.5 font-mono text-xs">
+      <span style={{ color: "rgba(160, 160, 204, 0.45)" }}>{seg.label}:</span>
+      <span
+        style={{
+          color: seg.green ? "#00ff9d" : "#a0a0cc",
+          textShadow: seg.green ? "0 0 12px rgba(0,255,157,0.7)" : "none",
+          fontWeight: seg.green ? 700 : 400,
+        }}
+      >
+        {seg.value}
+      </span>
+    </span>
+  );
+}
+
+/* ─── Nav tabs ───────────────────────────────────────────────────── */
+const NAV = [
+  { icon: LayoutDashboard, label: "Dashboard", active: true },
+  { icon: Zap, label: "Live Launches", active: false },
+  { icon: Info, label: "How It Works", active: false },
 ];
 
 export function SiteLayout({ children }: { children: ReactNode }) {
@@ -19,184 +73,171 @@ export function SiteLayout({ children }: { children: ReactNode }) {
   return (
     <div
       className="min-h-screen flex flex-col text-foreground"
-      style={{ fontFamily: "Inter, sans-serif", background: "#0a0a1f" }}
+      style={{ fontFamily: "Inter, sans-serif", background: "#0c0e14" }}
     >
-      {/* ── Top status ticker bar (#05050f) ─────────────────────────── */}
+      {/* ── Scrolling ticker (wallst.fun style) ─────────────────────── */}
       <div
-        className="w-full hidden sm:flex items-center px-6 shrink-0"
+        className="w-full overflow-hidden shrink-0"
         style={{
           height: 30,
-          background: "#05050f",
-          borderBottom: "1px solid rgba(160, 160, 204, 0.06)",
+          background: "#07080f",
+          borderBottom: "1px solid rgba(160, 160, 204, 0.05)",
         }}
       >
-        <div className="flex items-center gap-0 text-xs font-mono flex-1 overflow-hidden">
-          {STATUS_ITEMS.map((item, i) => (
-            <div key={i} className="flex items-center shrink-0">
-              {i > 0 && (
-                <span
-                  className="mx-4 select-none"
-                  style={{ color: "rgba(160, 160, 204, 0.18)" }}
-                >
-                  |
-                </span>
-              )}
-              <span style={{ color: "rgba(160, 160, 204, 0.45)" }}>
-                {item.label}:&nbsp;
+        <div className="h-full flex items-center">
+          <div className="ticker-track">
+            {/* Render twice for seamless loop */}
+            {[...TICKER_SEGMENTS, ...TICKER_SEGMENTS].map((seg, i) => (
+              <span key={i} className="inline-flex items-center px-2">
+                <TickerItem seg={seg} />
               </span>
-              <span
-                style={{
-                  color: item.green ? "#00ff9d" : "#a0a0cc",
-                  textShadow: item.green
-                    ? "0 0 14px rgba(0, 255, 157, 0.65)"
-                    : "none",
-                  fontWeight: item.green ? 700 : 400,
-                }}
-              >
-                {item.value}
-              </span>
-            </div>
-          ))}
-        </div>
-
-        <div className="flex items-center gap-1.5 shrink-0 ml-4">
-          <Activity
-            className="w-3 h-3"
-            style={{
-              color: "#00ff9d",
-              filter: "drop-shadow(0 0 4px #00ff9d)",
-            }}
-          />
-          <span
-            className="text-xs font-mono"
-            style={{ color: "rgba(160, 160, 204, 0.4)" }}
-          >
-            SOLANA DEVNET
-          </span>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* ── Header ─────────────────────────────────────────────────── */}
+      {/* ── Header: logo | nav | connect ────────────────────────────── */}
       <header
         className="sticky top-0 z-40 w-full shrink-0"
         style={{
-          background: "rgba(10, 10, 31, 0.97)",
+          background: "rgba(12, 14, 20, 0.97)",
           backdropFilter: "blur(24px)",
-          borderBottom: "1px solid rgba(160, 160, 204, 0.08)",
+          borderBottom: "1px solid rgba(160, 160, 204, 0.07)",
         }}
       >
-        <div className="container mx-auto px-4 md:px-6 h-[60px] flex items-center justify-between">
+        <div className="px-5 h-[54px] flex items-center gap-4">
+
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5">
+          <Link href="/" className="flex items-center gap-2 shrink-0">
             <div
-              className="flex items-center justify-center font-black font-mono text-sm"
+              className="flex items-center justify-center font-black font-mono text-sm shrink-0"
               style={{
-                width: 32,
-                height: 32,
+                width: 30,
+                height: 30,
                 background: "rgba(0, 255, 157, 0.08)",
-                border: "1px solid rgba(0, 255, 157, 0.5)",
-                borderRadius: 7,
+                border: "1px solid rgba(0, 255, 157, 0.4)",
+                borderRadius: 6,
                 color: "#00ff9d",
-                boxShadow:
-                  "0 0 18px rgba(0, 255, 157, 0.22), inset 0 0 12px rgba(0, 255, 157, 0.05)",
+                boxShadow: "0 0 16px rgba(0,255,157,0.2)",
               }}
             >
               W
             </div>
-            <div className="flex items-baseline gap-1.5">
-              <span
-                className="font-bold text-base"
-                style={{
-                  color: "#ffffff",
-                  letterSpacing: "-0.025em",
-                }}
-              >
-                WALL ST.
+            <span
+              className="font-bold text-sm"
+              style={{ color: "#ffffff", letterSpacing: "-0.01em" }}
+            >
+              wallst{" "}
+              <span style={{ color: "#00ff9d", fontWeight: 400 }}>
+                .fun
               </span>
-              <span
-                className="text-xs font-mono tracking-widest uppercase"
-                style={{ color: "rgba(0, 255, 157, 0.6)" }}
-              >
-                LAUNCHPAD
-              </span>
-            </div>
+            </span>
           </Link>
 
-          {/* Right side */}
-          <div className="flex items-center gap-3">
+          {/* Nav tabs — centered */}
+          <nav className="flex items-center gap-0.5 mx-auto">
+            {NAV.map(({ icon: Icon, label, active }) => (
+              <button
+                key={label}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all"
+                style={
+                  active
+                    ? {
+                        background: "rgba(160, 160, 204, 0.08)",
+                        border: "1px solid rgba(160, 160, 204, 0.1)",
+                        color: "#ffffff",
+                      }
+                    : {
+                        background: "transparent",
+                        border: "1px solid transparent",
+                        color: "rgba(160, 160, 204, 0.5)",
+                      }
+                }
+              >
+                <Icon className="w-3.5 h-3.5" />
+                {label}
+              </button>
+            ))}
+          </nav>
+
+          {/* Right: settings + wallet */}
+          <div className="flex items-center gap-2 shrink-0">
+            <button
+              className="w-8 h-8 flex items-center justify-center rounded-lg transition-colors"
+              style={{
+                background: "transparent",
+                border: "1px solid rgba(160, 160, 204, 0.1)",
+                color: "rgba(160, 160, 204, 0.5)",
+              }}
+            >
+              <Settings className="w-3.5 h-3.5" />
+            </button>
+
             {connected ? (
               <button
                 onClick={disconnect}
                 className="group flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all"
                 style={{
                   background: "rgba(0, 255, 157, 0.06)",
-                  border: "1px solid rgba(0, 255, 157, 0.22)",
+                  border: "1px solid rgba(0, 255, 157, 0.2)",
                   color: "#00ff9d",
                 }}
               >
                 <span
                   style={{
-                    width: 6,
-                    height: 6,
+                    width: 5,
+                    height: 5,
                     borderRadius: "50%",
                     background: "#00ff9d",
-                    boxShadow: "0 0 8px #00ff9d",
+                    boxShadow: "0 0 6px #00ff9d",
                     display: "inline-block",
                     flexShrink: 0,
                   }}
                 />
                 <span className="font-mono text-xs">{address}</span>
-                <LogOut className="w-3.5 h-3.5 opacity-50 group-hover:opacity-100 ml-1 transition-opacity" />
+                <LogOut className="w-3 h-3 opacity-50 group-hover:opacity-100 transition-opacity" />
               </button>
             ) : (
               <button
                 onClick={connect}
-                className="btn-primary flex items-center gap-2 px-4 py-2"
+                className="btn-primary flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold"
               >
                 <Wallet className="w-3.5 h-3.5" />
-                <span
-                  className="text-xs font-semibold"
-                  style={{ letterSpacing: "0.03em" }}
-                >
-                  Connect Phantom
-                </span>
+                Connect Phantom
               </button>
             )}
           </div>
         </div>
       </header>
 
-      {/* ── Page ───────────────────────────────────────────────────── */}
-      <main className="flex-1 flex flex-col relative z-10">{children}</main>
+      {/* ── Page content ────────────────────────────────────────────── */}
+      <main className="flex-1 flex flex-col">{children}</main>
 
-      {/* ── Footer ─────────────────────────────────────────────────── */}
+      {/* ── Footer ──────────────────────────────────────────────────── */}
       <footer
-        className="mt-20 py-8"
-        style={{ borderTop: "1px solid rgba(160, 160, 204, 0.07)" }}
+        className="py-6"
+        style={{ borderTop: "1px solid rgba(160, 160, 204, 0.06)" }}
       >
-        <div className="container mx-auto px-4 md:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <span className="live-dot" />
-            <p
-              className="text-xs font-mono"
-              style={{ color: "rgba(160, 160, 204, 0.4)" }}
-            >
-              © {new Date().getFullYear()} Wall St. Launchpad — Solana Devnet
-            </p>
-          </div>
-          <div className="flex gap-5">
+        <div className="container mx-auto px-5 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <span
+            className="text-xs font-mono"
+            style={{ color: "rgba(160, 160, 204, 0.3)" }}
+          >
+            wallst .fun
+          </span>
+          <div className="flex gap-4">
             {["Twitter", "Discord", "Docs"].map((link) => (
               <a
                 key={link}
                 href="#"
-                className="text-xs font-medium transition-colors"
-                style={{ color: "rgba(160, 160, 204, 0.4)" }}
+                className="text-xs transition-colors"
+                style={{ color: "rgba(160, 160, 204, 0.3)" }}
                 onMouseEnter={(e) =>
                   ((e.target as HTMLElement).style.color = "#00ff9d")
                 }
                 onMouseLeave={(e) =>
                   ((e.target as HTMLElement).style.color =
-                    "rgba(160, 160, 204, 0.4)")
+                    "rgba(160, 160, 204, 0.3)")
                 }
               >
                 {link}

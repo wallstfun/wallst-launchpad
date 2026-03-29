@@ -222,4 +222,18 @@
     0%, 100% { opacity: 1; box-shadow: 0 0 6px hsl(var(--primary)); }
     50% { opacity: 0.6; box-shadow: 0 0 12px hsl(var(--primary)); }
   }
+
+  /* Scrolling ticker marquee */
+  @keyframes ticker-scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .ticker-track {
+    display: inline-flex;
+    white-space: nowrap;
+    animation: ticker-scroll 45s linear infinite;
+  }
+  .ticker-track:hover {
+    animation-play-state: paused;
+  }
 }
