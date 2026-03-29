@@ -49,8 +49,8 @@
   --background: 217 62% 7%;
   --foreground: 210 40% 98%;
 
-  /* Card — lighter step between #0c1222 and #141c2e → #0e1425 */
-  --card: 222 47% 10%;
+  /* Card — one shade lighter → #0f1729 */
+  --card: 222 47% 11%;
   --card-foreground: 210 40% 98%;
   --card-border: 217 33% 17%;
 

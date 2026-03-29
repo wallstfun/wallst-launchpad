@@ -36,7 +36,7 @@ export function TokenCard({ token, index }: TokenCardProps) {
       onMouseLeave={() => setHovered(false)}
       className="rounded-xl flex flex-col gap-0 overflow-hidden cursor-pointer transition-all duration-150"
       style={{
-        background: hovered ? "#1d283a" : "#0e1425",
+        background: hovered ? "#1d283a" : "#0f1729",
         border: hovered
           ? "1px solid rgba(54, 211, 154, 0.2)"
           : "1px solid rgba(148, 163, 184, 0.08)",
@@ -51,9 +51,9 @@ export function TokenCard({ token, index }: TokenCardProps) {
           <div
             className="shrink-0 rounded-xl flex items-center justify-center overflow-hidden"
             style={{
-              width: 76,
-              height: 76,
-              background: "#0e1425",
+              width: 114,
+              height: 114,
+              background: "#0f1729",
               border: "1px solid rgba(148, 163, 184, 0.1)",
             }}
           >
