@@ -9,72 +9,127 @@ export function SiteLayout({ children }: { children: ReactNode }) {
   const { connected, address, connect, disconnect } = useWallet();
 
   return (
-    <div className="min-h-screen flex flex-col bg-background text-foreground selection:bg-primary/30 selection:text-primary">
-      <header className="sticky top-0 z-40 w-full border-b border-border bg-background">
-        <div className="container mx-auto px-4 md:px-6 h-14 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-7 h-7 bg-primary flex items-center justify-center text-primary-foreground font-bold font-mono text-base">
+    <div
+      className="min-h-screen flex flex-col text-foreground"
+      style={{ fontFamily: "Inter, sans-serif" }}
+    >
+      {/* ── Header ─────────────────────────────────────────────────────── */}
+      <header
+        className="sticky top-0 z-40 w-full"
+        style={{
+          background:
+            "linear-gradient(180deg, hsl(240 56% 6% / 0.98) 0%, hsl(240 56% 6% / 0.92) 100%)",
+          backdropFilter: "blur(20px)",
+          borderBottom: "1px solid hsl(240 40% 18%)",
+        }}
+      >
+        <div className="container mx-auto px-4 md:px-6 h-[60px] flex items-center justify-between">
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-2.5 group">
+            <div
+              className="w-8 h-8 flex items-center justify-center font-black font-mono text-sm tracking-tight"
+              style={{
+                background: "rgba(0, 255, 157, 0.1)",
+                border: "1px solid rgba(0, 255, 157, 0.5)",
+                borderRadius: "6px",
+                color: "#00ff9d",
+                boxShadow: "0 0 14px rgba(0, 255, 157, 0.2)",
+              }}
+            >
               W
             </div>
-            <span className="font-bold tracking-tighter text-lg md:text-xl text-foreground group-hover:text-primary transition-colors">
-              WALL ST.{" "}
-              <span className="text-muted-foreground font-mono text-xs tracking-normal ml-1">
+            <div className="flex items-baseline gap-1.5">
+              <span
+                className="font-bold text-base tracking-tight text-white"
+                style={{ letterSpacing: "-0.02em" }}
+              >
+                WALL ST.
+              </span>
+              <span
+                className="text-xs font-mono tracking-widest uppercase"
+                style={{ color: "rgba(0, 255, 157, 0.7)" }}
+              >
                 LAUNCHPAD
               </span>
-            </span>
+            </div>
           </Link>
 
-          <div className="flex items-center gap-4">
+          {/* Wallet */}
+          <div className="flex items-center gap-3">
             {connected ? (
               <button
                 onClick={disconnect}
-                className="group flex items-center gap-2 px-4 py-2 rounded-lg bg-secondary border border-border transition-all"
+                className="group flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all"
+                style={{
+                  background: "rgba(0, 255, 157, 0.06)",
+                  border: "1px solid rgba(0, 255, 157, 0.25)",
+                  color: "#00ff9d",
+                }}
               >
-                <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                <span className="font-mono text-sm text-foreground">
-                  {address}
-                </span>
-                <LogOut className="w-4 h-4 text-muted-foreground group-hover:text-destructive transition-colors ml-1" />
+                <span
+                  className="w-1.5 h-1.5 rounded-full"
+                  style={{
+                    background: "#00ff9d",
+                    boxShadow: "0 0 6px #00ff9d",
+                  }}
+                />
+                <span className="font-mono text-xs">{address}</span>
+                <LogOut className="w-3.5 h-3.5 opacity-60 group-hover:opacity-100 ml-1" />
               </button>
             ) : (
               <button
                 onClick={connect}
-                className="btn-primary px-4 py-2 flex items-center gap-2"
+                className="btn-primary flex items-center gap-2 px-4 py-2"
               >
-                <Wallet className="w-4 h-4" />
-                <span>Connect Phantom</span>
+                <Wallet className="w-3.5 h-3.5" />
+                <span className="text-xs font-semibold tracking-wide">
+                  Connect Phantom
+                </span>
               </button>
             )}
           </div>
         </div>
       </header>
 
+      {/* ── Page content ───────────────────────────────────────────────── */}
       <main className="flex-1 flex flex-col relative z-10">{children}</main>
 
-      <footer className="border-t border-border py-8 mt-24">
-        <div className="container mx-auto px-4 md:px-6 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-muted-foreground text-xs font-mono">
-            &copy; {new Date().getFullYear()} Wall St. Launchpad
-          </p>
-          <div className="flex gap-4">
-            <a
-              href="#"
-              className="text-muted-foreground hover:text-foreground transition-colors text-xs"
+      {/* ── Footer ─────────────────────────────────────────────────────── */}
+      <footer
+        className="mt-24 py-8"
+        style={{ borderTop: "1px solid hsl(240 40% 18%)" }}
+      >
+        <div className="container mx-auto px-4 md:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-2">
+            <span
+              className="w-1.5 h-1.5 rounded-full"
+              style={{ background: "#00ff9d", boxShadow: "0 0 6px #00ff9d" }}
+            />
+            <p
+              className="text-xs font-mono"
+              style={{ color: "hsl(240 28% 45%)" }}
             >
-              Twitter
-            </a>
-            <a
-              href="#"
-              className="text-muted-foreground hover:text-foreground transition-colors text-xs"
-            >
-              Discord
-            </a>
-            <a
-              href="#"
-              className="text-muted-foreground hover:text-foreground transition-colors text-xs"
-            >
-              Docs
-            </a>
+              © {new Date().getFullYear()} Wall St. Launchpad — Solana Devnet
+            </p>
+          </div>
+          <div className="flex gap-5">
+            {["Twitter", "Discord", "Docs"].map((link) => (
+              <a
+                key={link}
+                href="#"
+                className="text-xs font-medium transition-colors"
+                style={{ color: "hsl(240 28% 45%)" }}
+                onMouseEnter={(e) =>
+                  ((e.target as HTMLElement).style.color = "#00ff9d")
+                }
+                onMouseLeave={(e) =>
+                  ((e.target as HTMLElement).style.color =
+                    "hsl(240 28% 45%)")
+                }
+              >
+                {link}
+              </a>
+            ))}
           </div>
         </div>
       </footer>
