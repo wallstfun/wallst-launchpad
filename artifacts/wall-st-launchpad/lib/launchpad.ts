@@ -106,7 +106,7 @@ export async function createLaunchpadToken(params: {
     shareFeeReceiver: new PublicKey(PLATFORM_FEE_WALLET),
   });
 
-  const result = await execute({ sequentially: true });
+  const result = await execute();
   const txId = Array.isArray(result) ? result[0] : (result as any).txId || "";
 
   return {
@@ -138,7 +138,7 @@ export async function buyBondingCurveToken(params: {
     shareFeeReceiver: new PublicKey(PLATFORM_FEE_WALLET),
   });
 
-  const result = await execute({ sequentially: true });
+  const result = await execute();
   const txId = Array.isArray(result) ? result[0] : (result as any).txId || "";
   return { txId };
 }
@@ -166,7 +166,7 @@ export async function sellBondingCurveToken(params: {
     shareFeeReceiver: new PublicKey(PLATFORM_FEE_WALLET),
   });
 
-  const result = await execute({ sequentially: true });
+  const result = await execute();
   const txId = Array.isArray(result) ? result[0] : (result as any).txId || "";
   return { txId };
 }
