@@ -52,17 +52,24 @@ function StepLabel({ step }: { step: LaunchStep }) {
   return <>{labels[step]}</>;
 }
 
+/* ─── Exact wallst.fun palette ───────────────────────────────────────── */
+const GREEN = "#36d39a";
+const GREEN_RGBA = (a: number) => `rgba(54, 211, 154, ${a})`;
+const MUTED = (a: number) => `rgba(148, 163, 184, ${a})`;
+
+/* Label style — matches muted-foreground from globals.css */
 const LABEL_STYLE = {
-  color: "hsl(240 28% 52%)",
+  color: MUTED(0.5),
   fontSize: "0.65rem",
   fontWeight: 600,
   letterSpacing: "0.1em",
   textTransform: "uppercase" as const,
 };
 
+/* Input base style — uses the border/input HSL from globals.css: #1d283a */
 const INPUT_STYLE = {
-  background: "hsl(240 48% 13%)",
-  border: "1px solid hsl(240 40% 20%)",
+  background: "#111c2e",
+  border: `1px solid ${MUTED(0.12)}`,
   borderRadius: 8,
   color: "#ffffff",
   fontSize: "0.875rem",
@@ -73,8 +80,8 @@ const INPUT_STYLE = {
 };
 
 const INPUT_FOCUS_STYLE = {
-  borderColor: "rgba(0, 255, 157, 0.45)",
-  boxShadow: "0 0 0 3px rgba(0, 255, 157, 0.08)",
+  borderColor: GREEN_RGBA(0.45),
+  boxShadow: `0 0 0 3px ${GREEN_RGBA(0.08)}`,
 };
 
 function FieldInput(props: React.InputHTMLAttributes<HTMLInputElement>) {
@@ -235,7 +242,6 @@ export function CreateTokenModal({
 
   const tickerUnavailable = tickerStatus && !tickerStatus.available;
 
-  // Status banner
   const statusMessages: Partial<Record<LaunchStep, string>> = {
     connecting: "Opening Phantom wallet...",
     signing: "Approve the transaction in Phantom...",
@@ -248,17 +254,20 @@ export function CreateTokenModal({
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop */}
+          {/* ── Backdrop ─────────────────────────────────────────────── */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={isBusy ? undefined : onClose}
             className="fixed inset-0 z-50"
-            style={{ background: "rgba(4, 4, 18, 0.85)", backdropFilter: "blur(4px)" }}
+            style={{
+              background: "rgba(3, 8, 18, 0.88)",
+              backdropFilter: "blur(6px)",
+            }}
           />
 
-          {/* Modal */}
+          {/* ── Modal panel ──────────────────────────────────────────── */}
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
             <motion.div
               initial={{ opacity: 0, scale: 0.96, y: 16 }}
@@ -267,25 +276,27 @@ export function CreateTokenModal({
               transition={{ type: "spring", stiffness: 400, damping: 28 }}
               className="w-full max-w-md pointer-events-auto flex flex-col max-h-[92vh] rounded-2xl overflow-hidden"
               style={{
-                background: "hsl(240 52% 9%)",
-                border: "1px solid rgba(0, 255, 157, 0.18)",
-                boxShadow:
-                  "0 0 60px rgba(0, 255, 157, 0.06), 0 24px 64px rgba(0, 0, 0, 0.6)",
+                background: "#0a1422",
+                border: `1px solid ${GREEN_RGBA(0.15)}`,
+                boxShadow: `0 0 60px ${GREEN_RGBA(0.05)}, 0 24px 64px rgba(0, 0, 0, 0.7)`,
               }}
             >
-              {/* Header */}
+              {/* ── Modal header ──────────────────────────────────────── */}
               <div
                 className="px-5 py-4 flex items-center justify-between shrink-0"
-                style={{ borderBottom: "1px solid hsl(240 40% 16%)" }}
+                style={{ borderBottom: `1px solid ${MUTED(0.07)}` }}
               >
                 <div className="flex items-center gap-2">
                   <span
                     className="w-1.5 h-1.5 rounded-full"
-                    style={{ background: "#00ff9d", boxShadow: "0 0 6px #00ff9d" }}
+                    style={{
+                      background: GREEN,
+                      boxShadow: `0 0 6px ${GREEN}`,
+                    }}
                   />
                   <h2
                     className="text-xs font-mono font-bold uppercase tracking-[0.12em]"
-                    style={{ color: "#00ff9d" }}
+                    style={{ color: GREEN }}
                   >
                     Launch Token
                   </h2>
@@ -294,29 +305,29 @@ export function CreateTokenModal({
                   onClick={isBusy ? undefined : onClose}
                   disabled={isBusy}
                   className="p-1.5 rounded-md transition-colors disabled:opacity-40"
-                  style={{ color: "hsl(240 28% 45%)" }}
+                  style={{ color: MUTED(0.4) }}
                   onMouseEnter={(e) =>
                     ((e.currentTarget as HTMLElement).style.color = "#ffffff")
                   }
                   onMouseLeave={(e) =>
-                    ((e.currentTarget as HTMLElement).style.color =
-                      "hsl(240 28% 45%)")
+                    ((e.currentTarget as HTMLElement).style.color = MUTED(0.4))
                   }
                 >
                   <X className="w-4 h-4" />
                 </button>
               </div>
 
-              {/* Body */}
+              {/* ── Modal body ────────────────────────────────────────── */}
               <div className="p-5 overflow-y-auto">
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+
                   {/* Error banner */}
                   {tickerError && (
                     <div
                       className="px-4 py-3 rounded-lg flex items-start gap-2"
                       style={{
                         background: "rgba(239, 68, 68, 0.08)",
-                        border: "1px solid rgba(239, 68, 68, 0.25)",
+                        border: "1px solid rgba(239, 68, 68, 0.2)",
                         color: "#f87171",
                       }}
                     >
@@ -330,9 +341,9 @@ export function CreateTokenModal({
                     <div
                       className="px-4 py-3 rounded-lg flex items-center gap-2"
                       style={{
-                        background: "rgba(0, 255, 157, 0.05)",
-                        border: "1px solid rgba(0, 255, 157, 0.2)",
-                        color: "#00ff9d",
+                        background: GREEN_RGBA(0.05),
+                        border: `1px solid ${GREEN_RGBA(0.18)}`,
+                        color: GREEN,
                       }}
                     >
                       <Loader2 className="w-4 h-4 animate-spin shrink-0" />
@@ -340,8 +351,9 @@ export function CreateTokenModal({
                     </div>
                   )}
 
-                  {/* Fields */}
+                  {/* ── Fields ──────────────────────────────────────────── */}
                   <div className="space-y-4">
+
                     {/* Token Name */}
                     <div className="space-y-1.5">
                       <label style={LABEL_STYLE}>Token Name</label>
@@ -362,31 +374,39 @@ export function CreateTokenModal({
                     <div className="space-y-1.5">
                       <div className="flex items-center justify-between">
                         <label style={LABEL_STYLE}>Ticker</label>
-                        <span className="text-xs font-mono" style={{ color: "hsl(240 28% 40%)" }}>
+                        <span className="text-xs font-mono" style={{ color: MUTED(0.35) }}>
                           {tickerValue?.length || 0}/10
                         </span>
                       </div>
                       <div className="relative">
                         <span
                           className="absolute left-3 top-1/2 -translate-y-1/2 font-mono text-sm"
-                          style={{ color: "hsl(240 28% 45%)" }}
+                          style={{ color: MUTED(0.4) }}
                         >
                           $
                         </span>
                         <FieldInput
                           {...register("ticker")}
-                          style={{ ...INPUT_STYLE, paddingLeft: 28, paddingRight: 36, textTransform: "uppercase" }}
+                          style={{
+                            ...INPUT_STYLE,
+                            paddingLeft: 28,
+                            paddingRight: 36,
+                            textTransform: "uppercase",
+                          }}
                           placeholder="WSB"
                           maxLength={10}
                           disabled={isBusy}
                         />
                         <div className="absolute right-3 top-1/2 -translate-y-1/2">
                           {isCheckingTicker && (
-                            <Loader2 className="w-3.5 h-3.5 animate-spin" style={{ color: "hsl(240 28% 45%)" }} />
+                            <Loader2
+                              className="w-3.5 h-3.5 animate-spin"
+                              style={{ color: MUTED(0.4) }}
+                            />
                           )}
                           {!isCheckingTicker && tickerStatus && (
                             tickerStatus.available ? (
-                              <CheckCircle2 className="w-3.5 h-3.5" style={{ color: "#00ff9d" }} />
+                              <CheckCircle2 className="w-3.5 h-3.5" style={{ color: GREEN }} />
                             ) : (
                               <AlertCircle className="w-3.5 h-3.5" style={{ color: "#f87171" }} />
                             )
@@ -439,21 +459,17 @@ export function CreateTokenModal({
                     </div>
                   </div>
 
-                  {/* Submit */}
+                  {/* ── Submit ──────────────────────────────────────────── */}
                   <div className="pt-1">
                     <button
                       type="submit"
                       disabled={isBusy || !!tickerUnavailable}
                       className="w-full flex items-center justify-center gap-2 py-3 rounded-lg font-bold text-sm tracking-wide transition-all disabled:opacity-40 disabled:cursor-not-allowed"
                       style={{
-                        background: isBusy
-                          ? "rgba(0, 255, 157, 0.04)"
-                          : "rgba(0, 255, 157, 0.08)",
-                        border: "1px solid rgba(0, 255, 157, 0.5)",
-                        color: "#00ff9d",
-                        boxShadow: isBusy
-                          ? "none"
-                          : "0 0 20px rgba(0, 255, 157, 0.18)",
+                        background: isBusy ? GREEN_RGBA(0.04) : GREEN_RGBA(0.08),
+                        border: `1px solid ${GREEN_RGBA(0.5)}`,
+                        color: GREEN,
+                        boxShadow: isBusy ? "none" : `0 0 20px ${GREEN_RGBA(0.18)}`,
                         letterSpacing: "0.06em",
                       }}
                     >
@@ -464,7 +480,7 @@ export function CreateTokenModal({
 
                   <p
                     className="text-center text-xs font-mono"
-                    style={{ color: "hsl(240 28% 35%)" }}
+                    style={{ color: MUTED(0.3) }}
                   >
                     Solana devnet · Phantom required for on-chain launch
                   </p>
