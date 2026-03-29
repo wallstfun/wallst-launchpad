@@ -26,7 +26,7 @@ function StatPanel({
     <div
       className="rounded-xl p-4 flex flex-col gap-2"
       style={{
-        background: "#0c1222",
+        background: "#0f1729",
         border: "1px solid rgba(148, 163, 184, 0.08)",
       }}
     >
