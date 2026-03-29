@@ -39,17 +39,17 @@ function TickerItem({
     return (
       <span
         className="mx-5 select-none font-mono"
-        style={{ color: "rgba(160, 160, 204, 0.2)" }}
+        style={{ color: "rgba(148, 163, 184, 0.2)" }}
       >
         ///
       </span>
     );
   return (
     <span className="inline-flex items-center gap-1.5 font-mono text-xs">
-      <span style={{ color: "rgba(160, 160, 204, 0.45)" }}>{seg.label}:</span>
+      <span style={{ color: "rgba(148, 163, 184, 0.45)" }}>{seg.label}:</span>
       <span
         style={{
-          color: seg.green ? "#00ff9d" : "#a0a0cc",
+          color: seg.green ? "#36d39a" : "#a0a0cc",
           textShadow: seg.green ? "0 0 12px rgba(0,255,157,0.7)" : "none",
           fontWeight: seg.green ? 700 : 400,
         }}
@@ -73,15 +73,15 @@ export function SiteLayout({ children }: { children: ReactNode }) {
   return (
     <div
       className="min-h-screen flex flex-col text-foreground"
-      style={{ fontFamily: "Inter, sans-serif", background: "#0d0f1a" }}
+      style={{ fontFamily: "Inter, sans-serif", background: "#0f1729" }}
     >
       {/* ── Scrolling ticker (wallst.fun style) ─────────────────────── */}
       <div
         className="w-full overflow-hidden shrink-0"
         style={{
           height: 30,
-          background: "#070810",
-          borderBottom: "1px solid rgba(160, 160, 204, 0.05)",
+          background: "#07101e",
+          borderBottom: "1px solid rgba(148, 163, 184, 0.05)",
         }}
       >
         <div className="h-full flex items-center">
@@ -100,9 +100,9 @@ export function SiteLayout({ children }: { children: ReactNode }) {
       <header
         className="sticky top-0 z-40 w-full shrink-0"
         style={{
-          background: "rgba(13, 15, 26, 0.97)",
+          background: "rgba(15, 23, 41, 0.97)",
           backdropFilter: "blur(24px)",
-          borderBottom: "1px solid rgba(160, 160, 204, 0.07)",
+          borderBottom: "1px solid rgba(148, 163, 184, 0.07)",
         }}
       >
         <div className="max-w-7xl mx-auto w-full px-5 h-[54px] flex items-center gap-4">
@@ -114,10 +114,10 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               style={{
                 width: 30,
                 height: 30,
-                background: "rgba(0, 255, 157, 0.08)",
-                border: "1px solid rgba(0, 255, 157, 0.4)",
+                background: "rgba(54, 211, 154, 0.08)",
+                border: "1px solid rgba(54, 211, 154, 0.4)",
                 borderRadius: 6,
-                color: "#00ff9d",
+                color: "#36d39a",
                 boxShadow: "0 0 16px rgba(0,255,157,0.2)",
               }}
             >
@@ -128,7 +128,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               style={{ color: "#ffffff", letterSpacing: "-0.01em" }}
             >
               wallst{" "}
-              <span style={{ color: "#00ff9d", fontWeight: 400 }}>
+              <span style={{ color: "#36d39a", fontWeight: 400 }}>
                 .fun
               </span>
             </span>
@@ -143,14 +143,14 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                 style={
                   active
                     ? {
-                        background: "rgba(160, 160, 204, 0.08)",
-                        border: "1px solid rgba(160, 160, 204, 0.1)",
+                        background: "rgba(148, 163, 184, 0.08)",
+                        border: "1px solid rgba(148, 163, 184, 0.1)",
                         color: "#ffffff",
                       }
                     : {
                         background: "transparent",
                         border: "1px solid transparent",
-                        color: "rgba(160, 160, 204, 0.5)",
+                        color: "rgba(148, 163, 184, 0.5)",
                       }
                 }
               >
@@ -166,8 +166,8 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               className="w-8 h-8 flex items-center justify-center rounded-lg transition-colors"
               style={{
                 background: "transparent",
-                border: "1px solid rgba(160, 160, 204, 0.1)",
-                color: "rgba(160, 160, 204, 0.5)",
+                border: "1px solid rgba(148, 163, 184, 0.1)",
+                color: "rgba(148, 163, 184, 0.5)",
               }}
             >
               <Settings className="w-3.5 h-3.5" />
@@ -178,9 +178,9 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                 onClick={disconnect}
                 className="group flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all"
                 style={{
-                  background: "rgba(0, 255, 157, 0.06)",
-                  border: "1px solid rgba(0, 255, 157, 0.2)",
-                  color: "#00ff9d",
+                  background: "rgba(54, 211, 154, 0.06)",
+                  border: "1px solid rgba(54, 211, 154, 0.2)",
+                  color: "#36d39a",
                 }}
               >
                 <span
@@ -188,8 +188,8 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                     width: 5,
                     height: 5,
                     borderRadius: "50%",
-                    background: "#00ff9d",
-                    boxShadow: "0 0 6px #00ff9d",
+                    background: "#36d39a",
+                    boxShadow: "0 0 6px #36d39a",
                     display: "inline-block",
                     flexShrink: 0,
                   }}
@@ -216,12 +216,12 @@ export function SiteLayout({ children }: { children: ReactNode }) {
       {/* ── Footer ──────────────────────────────────────────────────── */}
       <footer
         className="py-6"
-        style={{ borderTop: "1px solid rgba(160, 160, 204, 0.06)" }}
+        style={{ borderTop: "1px solid rgba(148, 163, 184, 0.06)" }}
       >
         <div className="container mx-auto px-5 flex flex-col sm:flex-row items-center justify-between gap-3">
           <span
             className="text-xs font-mono"
-            style={{ color: "rgba(160, 160, 204, 0.3)" }}
+            style={{ color: "rgba(148, 163, 184, 0.3)" }}
           >
             wallst .fun
           </span>
@@ -231,13 +231,13 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                 key={link}
                 href="#"
                 className="text-xs transition-colors"
-                style={{ color: "rgba(160, 160, 204, 0.3)" }}
+                style={{ color: "rgba(148, 163, 184, 0.3)" }}
                 onMouseEnter={(e) =>
-                  ((e.target as HTMLElement).style.color = "#00ff9d")
+                  ((e.target as HTMLElement).style.color = "#36d39a")
                 }
                 onMouseLeave={(e) =>
                   ((e.target as HTMLElement).style.color =
-                    "rgba(160, 160, 204, 0.3)")
+                    "rgba(148, 163, 184, 0.3)")
                 }
               >
                 {link}

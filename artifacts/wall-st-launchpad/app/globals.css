@@ -43,47 +43,59 @@
   --radius-xl: 1rem;
 }
 
-/* ─── Palette — exact wallst.fun hex values ──────────────────────────────── */
+/* ─── Palette — extracted verbatim from wallst.fun built CSS ─────────────── */
 :root {
-  /* Main background — #0d0f1a (exact wallst.fun deep cool navy) */
-  --background: 234 28% 8%;
-  --foreground: 0 0% 100%;
+  /* Background — 222 47% 11% = #0f1729 */
+  --background: 222 47% 11%;
+  --foreground: 210 40% 98%;
 
-  /* Card/panel — #141628 */
-  --card: 236 28% 11%;
-  --card-foreground: 0 0% 100%;
+  /* Card — same hue as background (wallst.fun uses identical values) */
+  --card: 222 47% 11%;
+  --card-foreground: 210 40% 98%;
+  --card-border: 217 33% 17%;
 
-  --popover: 236 28% 11%;
-  --popover-foreground: 0 0% 100%;
+  --popover: 222 47% 11%;
+  --popover-foreground: 210 40% 98%;
+  --popover-border: 217 33% 17%;
 
-  /* Neon green — #00ff9d */
-  --primary: 157 100% 50%;
-  --primary-foreground: 234 28% 8%;
+  /* Primary accent — wallst.fun --gains: 158 64% 52% = #36d39a */
+  --primary: 158 64% 52%;
+  --primary-foreground: 222 47% 11%;
 
-  /* Elevated surfaces */
-  --secondary: 234 24% 15%;
-  --secondary-foreground: 234 26% 65%;
+  /* Secondary / elevated surface — 217 33% 17% = #1d283a */
+  --secondary: 217 33% 17%;
+  --secondary-foreground: 210 40% 98%;
 
-  /* Body text — #9499bb */
-  --muted: 236 28% 10%;
-  --muted-foreground: 234 26% 65%;
+  /* Muted — 215 20.2% 65.1% = #94a3b8 (slate-400) */
+  --muted: 217 33% 17%;
+  --muted-foreground: 215 20.2% 65.1%;
 
-  --accent: 234 24% 15%;
-  --accent-foreground: 234 26% 65%;
+  --accent: 217 33% 17%;
+  --accent-foreground: 210 40% 98%;
 
-  --destructive: 0 72% 55%;
-  --destructive-foreground: 0 0% 98%;
+  /* Destructive — 346 87% 60% (same as --losses in wallst.fun) */
+  --destructive: 346 87% 60%;
+  --destructive-foreground: 210 40% 98%;
 
-  --border: 234 24% 18%;
-  --input: 236 28% 10%;
-  --ring: 157 100% 50%;
-  --radius: 0.75rem;
+  /* Border / input — 217 33% 17% = #1d283a */
+  --border: 217 33% 17%;
+  --input: 217 33% 17%;
 
-  /* Raw hex tokens for inline styles / box-shadow */
-  --green: #00ff9d;
-  --green-glow: rgba(0, 255, 157, 0.18);
-  --green-glow-md: rgba(0, 255, 157, 0.28);
-  --green-glow-strong: rgba(0, 255, 157, 0.45);
+  /* Ring — 212.7 26.8% 83.9% (from wallst.fun) */
+  --ring: 212.7 26.8% 83.9%;
+
+  /* Radius — 0.5rem (exact from wallst.fun) */
+  --radius: 0.5rem;
+
+  /* Gains / losses (wallst.fun custom tokens) */
+  --gains: 158 64% 52%;
+  --losses: 346 87% 60%;
+
+  /* Raw hex tokens for inline styles (derived from above) */
+  --green: #36d39a;
+  --green-glow: rgba(54, 211, 154, 0.18);
+  --green-glow-md: rgba(54, 211, 154, 0.28);
+  --green-glow-strong: rgba(54, 211, 154, 0.45);
 }
 
 /* ─── Base resets ────────────────────────────────────────────────────────── */

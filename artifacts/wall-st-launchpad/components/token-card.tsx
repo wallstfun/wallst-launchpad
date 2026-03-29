@@ -36,10 +36,10 @@ export function TokenCard({ token, index }: TokenCardProps) {
       onMouseLeave={() => setHovered(false)}
       className="rounded-xl flex flex-col gap-0 overflow-hidden cursor-pointer transition-all duration-150"
       style={{
-        background: hovered ? "#1a1c2e" : "#141628",
+        background: hovered ? "#1d283a" : "#141c2e",
         border: hovered
-          ? "1px solid rgba(0, 255, 157, 0.2)"
-          : "1px solid rgba(148, 153, 187, 0.08)",
+          ? "1px solid rgba(54, 211, 154, 0.2)"
+          : "1px solid rgba(148, 163, 184, 0.08)",
         boxShadow: hovered ? "0 4px 30px rgba(0,255,157,0.04)" : "none",
       }}
     >
@@ -53,8 +53,8 @@ export function TokenCard({ token, index }: TokenCardProps) {
             style={{
               width: 76,
               height: 76,
-              background: "#1a1a32",
-              border: "1px solid rgba(148, 153, 187, 0.1)",
+              background: "#1a2238",
+              border: "1px solid rgba(148, 163, 184, 0.1)",
             }}
           >
             {token.imageUrl ? (
@@ -66,7 +66,7 @@ export function TokenCard({ token, index }: TokenCardProps) {
             ) : (
               <span
                 className="font-black font-mono text-2xl"
-                style={{ color: "#00ff9d" }}
+                style={{ color: "#36d39a" }}
               >
                 {token.ticker.charAt(0)}
               </span>
@@ -86,7 +86,7 @@ export function TokenCard({ token, index }: TokenCardProps) {
                 </p>
                 <p
                   className="text-xs font-mono mt-0.5"
-                  style={{ color: "rgba(148, 153, 187, 0.6)" }}
+                  style={{ color: "rgba(148, 163, 184, 0.6)" }}
                 >
                   {token.ticker}
                 </p>
@@ -97,9 +97,9 @@ export function TokenCard({ token, index }: TokenCardProps) {
                 <div
                   className="flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-mono font-semibold shrink-0"
                   style={{
-                    background: "rgba(0, 255, 157, 0.08)",
-                    border: "1px solid rgba(0, 255, 157, 0.25)",
-                    color: "#00ff9d",
+                    background: "rgba(54, 211, 154, 0.08)",
+                    border: "1px solid rgba(54, 211, 154, 0.25)",
+                    color: "#36d39a",
                   }}
                 >
                   <CheckCircle2 className="w-3 h-3" />
@@ -109,9 +109,9 @@ export function TokenCard({ token, index }: TokenCardProps) {
                 <div
                   className="flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs font-mono shrink-0"
                   style={{
-                    background: "rgba(0, 255, 157, 0.05)",
-                    border: "1px solid rgba(0, 255, 157, 0.15)",
-                    color: "rgba(0, 255, 157, 0.85)",
+                    background: "rgba(54, 211, 154, 0.05)",
+                    border: "1px solid rgba(54, 211, 154, 0.15)",
+                    color: "rgba(54, 211, 154, 0.85)",
                   }}
                 >
                   <span className="live-dot" style={{ width: 5, height: 5 }} />
@@ -125,7 +125,7 @@ export function TokenCard({ token, index }: TokenCardProps) {
               <p
                 className="text-xs font-mono uppercase mb-0.5"
                 style={{
-                  color: "rgba(148, 153, 187, 0.4)",
+                  color: "rgba(148, 163, 184, 0.4)",
                   letterSpacing: "0.08em",
                 }}
               >
@@ -156,7 +156,7 @@ export function TokenCard({ token, index }: TokenCardProps) {
           <p
             className="text-xs font-mono uppercase mb-0.5"
             style={{
-              color: "rgba(148, 153, 187, 0.4)",
+              color: "rgba(148, 163, 184, 0.4)",
               letterSpacing: "0.08em",
             }}
           >
@@ -164,7 +164,7 @@ export function TokenCard({ token, index }: TokenCardProps) {
           </p>
           <p
             className="text-xs font-mono"
-            style={{ color: "rgba(148, 153, 187, 0.55)" }}
+            style={{ color: "rgba(148, 163, 184, 0.55)" }}
           >
             {shortAddress}
           </p>
@@ -176,7 +176,7 @@ export function TokenCard({ token, index }: TokenCardProps) {
             <p
               className="text-xs font-mono uppercase"
               style={{
-                color: "rgba(148, 153, 187, 0.4)",
+                color: "rgba(148, 163, 184, 0.4)",
                 letterSpacing: "0.08em",
               }}
             >
@@ -184,7 +184,7 @@ export function TokenCard({ token, index }: TokenCardProps) {
             </p>
             <span
               className="text-xs font-mono font-bold"
-              style={{ color: "#00ff9d" }}
+              style={{ color: "#36d39a" }}
             >
               {progressPercent.toFixed(1)}%
             </span>
@@ -192,7 +192,7 @@ export function TokenCard({ token, index }: TokenCardProps) {
           <div
             style={{
               height: 6,
-              background: "rgba(0, 255, 157, 0.07)",
+              background: "rgba(54, 211, 154, 0.07)",
               borderRadius: 999,
               overflow: "hidden",
             }}
@@ -201,7 +201,7 @@ export function TokenCard({ token, index }: TokenCardProps) {
               style={{
                 width: `${progressPercent}%`,
                 height: "100%",
-                background: "linear-gradient(90deg, #00cc7a, #00ff9d)",
+                background: "linear-gradient(90deg, #00cc7a, #36d39a)",
                 boxShadow: "0 0 8px rgba(0,255,157,0.5)",
                 borderRadius: 999,
                 transition: "width 0.4s ease",
@@ -214,16 +214,16 @@ export function TokenCard({ token, index }: TokenCardProps) {
       {/* ── Footer button ─────────────────────────────────────────── */}
       <div
         className="px-4 py-3"
-        style={{ borderTop: "1px solid rgba(148, 153, 187, 0.06)" }}
+        style={{ borderTop: "1px solid rgba(148, 163, 184, 0.06)" }}
       >
         <button
           className="w-full flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-semibold transition-all"
           style={{
             background: hovered
-              ? "rgba(0, 255, 157, 0.1)"
-              : "rgba(0, 255, 157, 0.06)",
-            border: "1px solid rgba(0, 255, 157, 0.2)",
-            color: "#00ff9d",
+              ? "rgba(54, 211, 154, 0.1)"
+              : "rgba(54, 211, 154, 0.06)",
+            border: "1px solid rgba(54, 211, 154, 0.2)",
+            color: "#36d39a",
             letterSpacing: "0.03em",
           }}
         >
@@ -242,7 +242,7 @@ export function TokenCard({ token, index }: TokenCardProps) {
 
         <p
           className="text-center text-xs font-mono mt-2"
-          style={{ color: "rgba(148, 153, 187, 0.3)" }}
+          style={{ color: "rgba(148, 163, 184, 0.3)" }}
         >
           {formatDistanceToNow(new Date(token.createdAt), { addSuffix: true })}
         </p>

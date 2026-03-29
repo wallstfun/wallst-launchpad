@@ -26,27 +26,27 @@ function StatPanel({
     <div
       className="rounded-xl p-4 flex flex-col gap-2"
       style={{
-        background: "#141628",
-        border: "1px solid rgba(148, 153, 187, 0.08)",
+        background: "#141c2e",
+        border: "1px solid rgba(148, 163, 184, 0.08)",
       }}
     >
       <div className="flex items-center justify-between">
         <span
           className="text-xs font-mono uppercase tracking-widest"
-          style={{ color: "rgba(160, 160, 204, 0.4)" }}
+          style={{ color: "rgba(148, 163, 184, 0.4)" }}
         >
           {label}
         </span>
         <Icon
           className="w-3.5 h-3.5"
-          style={{ color: highlight ? "#00ff9d" : "rgba(160, 160, 204, 0.3)" }}
+          style={{ color: highlight ? "#36d39a" : "rgba(148, 163, 184, 0.3)" }}
         />
       </div>
       <div
         className="text-3xl font-black font-mono leading-none"
         style={
           highlight
-            ? { color: "#00ff9d", textShadow: "0 0 24px rgba(0,255,157,0.4)" }
+            ? { color: "#36d39a", textShadow: "0 0 24px rgba(0,255,157,0.4)" }
             : { color: "#ffffff" }
         }
       >
@@ -55,7 +55,7 @@ function StatPanel({
       {sub && (
         <p
           className="text-xs font-mono"
-          style={{ color: "rgba(160, 160, 204, 0.35)" }}
+          style={{ color: "rgba(148, 163, 184, 0.35)" }}
         >
           {sub}
         </p>
@@ -76,7 +76,7 @@ export default function Home() {
     <SiteLayout>
       <div
         className="flex-1"
-        style={{ background: "#0d0f1a" }}
+        style={{ background: "#0f1729" }}
       >
         <div className="container mx-auto px-5 py-8 max-w-7xl">
 
@@ -87,9 +87,9 @@ export default function Home() {
                 <span
                   className="text-xs font-mono px-2 py-0.5 rounded"
                   style={{
-                    background: "rgba(160, 160, 204, 0.07)",
-                    border: "1px solid rgba(160, 160, 204, 0.1)",
-                    color: "rgba(160, 160, 204, 0.6)",
+                    background: "rgba(148, 163, 184, 0.07)",
+                    border: "1px solid rgba(148, 163, 184, 0.1)",
+                    color: "rgba(148, 163, 184, 0.6)",
                     letterSpacing: "0.05em",
                   }}
                 >
@@ -97,7 +97,7 @@ export default function Home() {
                 </span>
                 <div
                   className="flex items-center gap-1 text-xs font-mono"
-                  style={{ color: "#00ff9d" }}
+                  style={{ color: "#36d39a" }}
                 >
                   <span className="live-dot" />
                   AUTONOMOUS MODE ACTIVE
@@ -172,7 +172,7 @@ export default function Home() {
                 </h2>
                 <div
                   className="flex items-center gap-1 text-xs font-mono"
-                  style={{ color: "#00ff9d" }}
+                  style={{ color: "#36d39a" }}
                 >
                   <span className="live-dot" style={{ width: 5, height: 5 }} />
                   LIVE
@@ -203,7 +203,7 @@ export default function Home() {
                     className="h-[280px] rounded-xl animate-pulse"
                     style={{
                       background: "#141620",
-                      border: "1px solid rgba(160, 160, 204, 0.06)",
+                      border: "1px solid rgba(148, 163, 184, 0.06)",
                     }}
                   />
                 ))}
@@ -218,13 +218,13 @@ export default function Home() {
               <div
                 className="py-24 flex flex-col items-center text-center rounded-xl"
                 style={{
-                  border: "1px dashed rgba(160, 160, 204, 0.1)",
-                  background: "rgba(0, 255, 157, 0.01)",
+                  border: "1px dashed rgba(148, 163, 184, 0.1)",
+                  background: "rgba(54, 211, 154, 0.01)",
                 }}
               >
                 <div
                   className="text-3xl font-black font-mono mb-3"
-                  style={{ color: "rgba(160, 160, 204, 0.12)" }}
+                  style={{ color: "rgba(148, 163, 184, 0.12)" }}
                 >
                   [ EMPTY ]
                 </div>
