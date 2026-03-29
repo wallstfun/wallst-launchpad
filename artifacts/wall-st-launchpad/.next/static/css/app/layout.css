@@ -774,24 +774,24 @@
   initial-value: 0;
 }
 :root {
-  --background: 222 10% 6%;
+  --background: 240 51% 8%;
   --foreground: 0 0% 100%;
-  --card: 230 18% 10%;
+  --card: 240 32% 13%;
   --card-foreground: 0 0% 100%;
-  --popover: 230 18% 10%;
+  --popover: 240 32% 13%;
   --popover-foreground: 0 0% 100%;
   --primary: 157 100% 50%;
-  --primary-foreground: 222 10% 6%;
-  --secondary: 230 14% 13%;
+  --primary-foreground: 240 51% 8%;
+  --secondary: 240 30% 17%;
   --secondary-foreground: 240 30% 71%;
-  --muted: 230 18% 9%;
+  --muted: 240 32% 11%;
   --muted-foreground: 240 30% 71%;
-  --accent: 230 14% 13%;
+  --accent: 240 30% 17%;
   --accent-foreground: 240 30% 71%;
   --destructive: 0 72% 55%;
   --destructive-foreground: 0 0% 98%;
-  --border: 230 14% 16%;
-  --input: 230 18% 9%;
+  --border: 240 30% 20%;
+  --input: 240 32% 11%;
   --ring: 157 100% 50%;
   --radius: 0.75rem;
   --green: #00ff9d;

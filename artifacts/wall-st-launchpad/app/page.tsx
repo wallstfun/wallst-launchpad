@@ -6,7 +6,7 @@ import { TokenCard } from "@/components/token-card";
 import { CreateTokenModal } from "@/components/create-token-modal";
 import { useGetTokens } from "@/lib/api";
 import { PLATFORM_FEE_PERCENT } from "@/lib/launchpad";
-import { Layers, TrendingUp, ArrowUpRight, Shield, Plus, RefreshCw } from "lucide-react";
+import { Layers, TrendingUp, ArrowUpRight, Shield, Plus } from "lucide-react";
 
 /* ─── Small stat card (wallst.fun dashboard style) ──────────────── */
 function StatPanel({
@@ -26,7 +26,7 @@ function StatPanel({
     <div
       className="rounded-xl p-4 flex flex-col gap-2"
       style={{
-        background: "#141620",
+        background: "#16162a",
         border: "1px solid rgba(160, 160, 204, 0.07)",
       }}
     >
@@ -76,7 +76,7 @@ export default function Home() {
     <SiteLayout>
       <div
         className="flex-1"
-        style={{ background: "#0c0e14" }}
+        style={{ background: "#0a0a1f" }}
       >
         <div className="container mx-auto px-5 py-8 max-w-7xl">
 
@@ -119,18 +119,6 @@ export default function Home() {
             </div>
 
             <div className="flex items-center gap-2 shrink-0">
-              <button
-                onClick={() => refetch()}
-                className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium transition-all"
-                style={{
-                  background: "rgba(160, 160, 204, 0.06)",
-                  border: "1px solid rgba(160, 160, 204, 0.1)",
-                  color: "rgba(160, 160, 204, 0.7)",
-                }}
-              >
-                <RefreshCw className="w-3.5 h-3.5" />
-                Refresh
-              </button>
               <button
                 onClick={() => setIsCreateModalOpen(true)}
                 className="btn-primary flex items-center gap-1.5 px-4 py-2 text-sm font-semibold"
